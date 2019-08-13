@@ -408,19 +408,19 @@ int main(int argc, char** argv)
 				new_tripoint.push_back(interpoint[1]);
 				continue;
 			}
-			if ((a == 1) && (b == 0))//有两交点且一个内点 两两相连，注意顺序 点是有向的吗？
+			if ((a == 1) && (b == 0))//有两交点且一个内点 两两相连，注意顺序 
 			{
 				new_tripoint.push_back(tripoint[m]);				
 				new_tripoint.push_back(mindistance(tripoint[m], interpoint[0],interpoint[1]));
 				continue;
 			}
-			if ((a == 0) && (b == 1))//有两交点且一个内点 两两相连，注意顺序 点是有向的吗？
+			if ((a == 0) && (b == 1))//有两交点且一个内点 两两相连，注意顺序
 			{
 				new_tripoint.push_back(tripoint[m + 1]);
 				new_tripoint.push_back(mindistance(tripoint[m + 1], interpoint[0], interpoint[1]));
 				continue;
 			}
-			if ((a == 1) && (b == 1))//有两交点且两个内点 两两相连，注意顺序 点是有向的吗？
+			if ((a == 1) && (b == 1))//有两交点且两个内点 两两相连，注意顺序 
 			{
 				new_tripoint.push_back(tripoint[m]);
 				new_tripoint.push_back(mindistance(tripoint[m], interpoint[0], interpoint[1]));
