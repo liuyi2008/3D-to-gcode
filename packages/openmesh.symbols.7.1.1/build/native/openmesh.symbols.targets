@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="openmesh_symbols_init">
+  <PropertyGroup Label="Default initializers for properties">
+    <Linkage-openmesh_symbols Condition="'$(Linkage-openmesh_symbols)' == ''">dynamic</Linkage-openmesh_symbols>
+    <CallingConvention-openmesh_symbols Condition="'$(CallingConvention-openmesh_symbols)' == ''">cdecl</CallingConvention-openmesh_symbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\default-propertiesui.xml" />
+  </ItemGroup>
+  <UsingTask TaskName="openmesh_symbols_Contains" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
+    <ParameterGroup>
+      <Text Output="false" ParameterType="System.String" />
+      <Library Output="false" Required="true" ParameterType="System.String" />
+      <Value Output="false" Required="true" ParameterType="System.String" />
+      <Result Output="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Code>Result = ((Text ?? "").Split(';').Contains(Library) ) ? Value : String.Empty;</Code>
+    </Task>
+  </UsingTask>
+  <Target Name="openmesh_symbols_init">
+    <openmesh_symbols_Contains Text="Linkage-dynamic" Library="openmesh_symbols" Value="dynamic" Condition="'$(Linkage-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+    <openmesh_symbols_Contains Text="Linkage-static" Library="openmesh_symbols" Value="static" Condition="'$(Linkage-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+    <openmesh_symbols_Contains Text="Linkage-ltcg" Library="openmesh_symbols" Value="ltcg" Condition="'$(Linkage-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+    <openmesh_symbols_Contains Text="Linkage-sxs" Library="openmesh_symbols" Value="sxs" Condition="'$(Linkage-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+    <openmesh_symbols_Contains Text="CallingConvention-cdecl" Library="openmesh_symbols" Value="cdecl" Condition="'$(CallingConvention-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+    <openmesh_symbols_Contains Text="CallingConvention-stdcall" Library="openmesh_symbols" Value="stdcall" Condition="'$(CallingConvention-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+    <openmesh_symbols_Contains Text="CallingConvention-fastcall" Library="openmesh_symbols" Value="fastcall" Condition="'$(CallingConvention-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+    <openmesh_symbols_Contains Text="CallingConvention-thiscall" Library="openmesh_symbols" Value="thiscall" Condition="'$(CallingConvention-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+    <openmesh_symbols_Contains Text="CallingConvention-clrcall" Library="openmesh_symbols" Value="clrcall" Condition="'$(CallingConvention-openmesh_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-openmesh_symbols" />
+    </openmesh_symbols_Contains>
+  </Target>
+</Project>
