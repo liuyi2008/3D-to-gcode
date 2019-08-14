@@ -15,7 +15,7 @@ using namespace std;
 #define eps 1e-8
 #define zero(x) (((x)>0?(x):-(x))<eps)
 
-struct point { double x, y; }p1;
+struct point { double x, y; }p;
 
 vector<point>polypoint = { {250,50},{550,150},{550,400},{250,250},{100,350},{100,100},{120,30} }; //轮廓线坐标集
 vector<point>tripoint;  //变化线 线段坐标 成对
@@ -317,6 +317,23 @@ void myDisplay(void)
 	glPointSize(1);
 	glBegin(GL_LINES);
 
+	glBegin(GL_LINES);
+	for (int i = 0; i < tripoint.size(); i++)
+	{
+
+		glColor3f(1.0f, 0.0f, 0.0f); //线是红色的
+		glVertex2f(tripoint[i].x, tripoint[i].y);
+		//printf("i=%d,x=%f,y=%f\n",i , tripoint[i].x, tripoint[i].y);		
+
+	}
+	glEnd();
+
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glBegin(GL_LINES);
+	glVertex2f(0, 0); glVertex2f(150, 150);
+	glEnd();
+
+	glBegin(GL_LINES);
 	for (int i = 0; i < new_tripoint.size(); i++)
 	{
 
@@ -325,8 +342,8 @@ void myDisplay(void)
 		//printf("i=%d,x=%f,y=%f\n",i , tripoint[i].x, tripoint[i].y);		
 
 	}
-	
 	glEnd();
+
 	glBegin(GL_LINE_LOOP);
 	for (int i = 0; i < polypoint.size(); i++)
 	{
@@ -337,19 +354,30 @@ void myDisplay(void)
 
 	}
 	glEnd();
+
 	glFlush();
 }
 
 //****************************************************************画出来测试用************************************************************
 
 
-
 int main(int argc, char** argv)
 {
-
+	
+	
 	tripoint.clear(); //把上一层的清理掉
 	interpoint.clear(); 
-	triangle(0);
+	triangle(1);
+	for (int i = 0; i < tripoint.size(); i++)
+	{
+
+		//glColor3f(1.0f, 0.0f, 0.0f); //线是红色的
+		//glVertex2f(tripoint[i].x, tripoint[i].y);
+		//printf("i=%d,x=%f,y=%f\n", i, tripoint[i].x, tripoint[i].y);
+		p = { tripoint[i].x*0.4,tripoint[i].y*0.4 };
+		tripoint[i] = p;
+
+	}
 	for (int m=0;m< tripoint.size();m+=2)  //网格的每一条线段，首尾相连线段端点重复，所以跳两个
 	{
 		interpoint.clear(); //上一条线段的交点清理掉

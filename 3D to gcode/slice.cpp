@@ -9,7 +9,9 @@ const float ERR = 0.001;
 //文件读取有关的
 MyMesh mesh;
 
-extern const string file_1 = "cow_file.obj";
+//extern const string file_1 = "cow_file.obj";
+extern const string file_1 = "test.obj";
+
 extern const string file_2 = "cactus.ply";
 extern const string file_3 = "Armadillo.off";
 int currentfile = 1;
@@ -306,7 +308,7 @@ void findIntersect() {
 	cout << "'part' represents which part of the cow may be taken from this section." << endl;
 	printf("\n--------------------------------------------------------------------------------------------\n");
 	printf("--------------------------------------------------------------------------------------------\n\n\n");*/
-	printf("切片中\n");
+	printf("slicing...\n");
 	for (double i = Bmin_x; i < Bmax_x; ) {
 		MyMesh::Point pt;
 		MyMesh::Point pilist[1000];
@@ -412,6 +414,6 @@ void findIntersect() {
 			i += 5;
 		}
 		*/
-		i += 5;
+		i += 1;
 	}
 }
