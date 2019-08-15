@@ -309,15 +309,15 @@ void findIntersect() {
 	printf("\n--------------------------------------------------------------------------------------------\n");
 	printf("--------------------------------------------------------------------------------------------\n\n\n");*/
 	printf("slicing...\n");
-	for (double i = Bmin_x; i < Bmax_x; ) {
+	for (double i = Bmin_z; i < Bmax_z; ) {
 		MyMesh::Point pt;
 		MyMesh::Point pilist[1000];
 		//MyMesh::Normal v0(0, 1, 1), v1(0, 1, -1);
 		//MyMesh::Normal vf = v0 % v1;
-		MyMesh::Normal vf(1, 0, 0);
+		MyMesh::Normal vf(0, 0, 1);
 		int pnum = 0;
 		float Xport = 0;
-		pt.data()[0] = i; pt.data()[1] = pt.data()[2] = 0;
+		pt.data()[0] = 0; pt.data()[1] = 0; pt.data()[2] = i;
 		if (IntersectPlane(pt, vf, pilist, pnum)) {
 			numofcut[countt] = pnum;
 			if (Bmin_x * Bmax_x < 0) {
@@ -375,7 +375,7 @@ void findIntersect() {
 				else
 				{
 					//printf("-- %d th:( %.4f, %.4f, %.4f )   \t", j + 1 - numdiff, pilist[j].data()[0], pilist[j].data()[1], pilist[j].data()[2]);
-					p = { pilist[j].data()[1] ,pilist[j].data()[2] };
+					p = { pilist[j].data()[0] ,pilist[j].data()[1] };
 					coord.push_back(p);
 				}
 				if ((j + numdiff) % 2) {
