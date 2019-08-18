@@ -131,7 +131,7 @@ point mindistance(point a, point b, point c) //在b 和 c中返回离a 最近的点
 
 double distance(point a, point b)
 {
-	return sqrt( pow((a.x - b.x), 2) + pow((a.y - b.y), 2) ) * 0.03326;
+	return sqrt( pow((a.x - b.x), 2) + pow((a.y - b.y), 2) ) * 0.1;
 }
 
 void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置
@@ -388,101 +388,93 @@ void main(int argc, char** argv)
 			tripoint[i] = p1;
 
 		}
-		for (int i = 1; i < tripoint.size(); i+=2) //对变化线缩放
-		{
-
-			if(sqrt(pow((tripoint[i-1].x - tripoint[i].x), 2) + pow((tripoint[i - 1].y - tripoint[i].y), 2)))
-			tripoint[i] = p1;
-
-		}
 		polypoint = model[i];//把第i层的轮廓线给polypoint
 
-		//for (int m = 0; m < tripoint.size(); m += 2)  //网格的每一条线段，首尾相连线段端点重复，所以跳两个
-		//{
-		//	interpoint.clear(); //上一条线段的交点清理掉
-		//	for (int n = 0; n < polypoint.size(); n++) //多边形的每一条线段，首尾相连线段端点不重复，所以跳一个
-		//	{
-		//		inter(tripoint[m], tripoint[m + 1], polypoint[n], polypoint[(n + 1 + polypoint.size()) % polypoint.size()]);
-		//	}
-		//	int a = InOrOutPolygon(tripoint[m]);
-		//	int b = InOrOutPolygon(tripoint[m + 1]);  //判断是不是内点,0:外 1:内
+		for (int m = 0; m < tripoint.size(); m += 2)  //网格的每一条线段，首尾相连线段端点重复，所以跳两个
+		{
+			interpoint.clear(); //上一条线段的交点清理掉
+			for (int n = 0; n < polypoint.size(); n++) //多边形的每一条线段，首尾相连线段端点不重复，所以跳一个
+			{
+				inter(tripoint[m], tripoint[m + 1], polypoint[n], polypoint[(n + 1 + polypoint.size()) % polypoint.size()]);
+			}
+			int a = InOrOutPolygon(tripoint[m]);
+			int b = InOrOutPolygon(tripoint[m + 1]);  //判断是不是内点,0:外 1:内
 
-		//	if (interpoint.size() == 0)   // 无交点
-		//	{
-		//		if ((a == 0) && (b == 0)) //无内点，舍
-		//		{
-		//			continue;
-		//		}
-		//		if ((a == 1) || (b == 1)) //存在内点，取
-		//		{
-		//			new_tripoint.push_back(tripoint[m]);
-		//			new_tripoint.push_back(tripoint[m + 1]);
-		//			continue;
-		//		}
-		//	}
+			if (interpoint.size() == 0)   // 无交点
+			{
+				if ((a == 0) && (b == 0)) //无内点，舍
+				{
+					continue;
+				}
+				if ((a == 1) || (b == 1)) //存在内点，取
+				{
+					new_tripoint.push_back(tripoint[m]);
+					new_tripoint.push_back(tripoint[m + 1]);
+					continue;
+				}
+			}
 
-		//	if (interpoint.size() == 1)   //有一交点
-		//	{
-		//		if ((a == 0) && (b == 0))   //有一交点且无内点，舍 （相切）
-		//		{
-		//			continue;
-		//		}
-		//		if ((a == 1) && (b == 0))//有一交点且有一内点，取内点到交点 （相交）
-		//		{
-		//			new_tripoint.push_back(tripoint[m]);
-		//			new_tripoint.push_back(interpoint[0]);
-		//			continue;
-		//		}
-		//		if ((a == 0) && (b == 1))//有一交点且有一内点，取内点到交点 （相交）
-		//		{
-		//			new_tripoint.push_back(interpoint[0]);
-		//			new_tripoint.push_back(tripoint[m + 1]);
-		//			continue;
-		//		}
-		//		if ((a == 1) && (b == 1)) //有一交点且有两内点，取 （内部包含）
-		//		{
-		//			new_tripoint.push_back(tripoint[m]);
-		//			new_tripoint.push_back(tripoint[m + 1]);
-		//			continue;
-		//		}
+			if (interpoint.size() == 1)   //有一交点
+			{
+				if ((a == 0) && (b == 0))   //有一交点且无内点，舍 （相切）
+				{
+					continue;
+				}
+				if ((a == 1) && (b == 0))//有一交点且有一内点，取内点到交点 （相交）
+				{
+					new_tripoint.push_back(tripoint[m]);
+					new_tripoint.push_back(interpoint[0]);
+					continue;
+				}
+				if ((a == 0) && (b == 1))//有一交点且有一内点，取内点到交点 （相交）
+				{
+					new_tripoint.push_back(interpoint[0]);
+					new_tripoint.push_back(tripoint[m + 1]);
+					continue;
+				}
+				if ((a == 1) && (b == 1)) //有一交点且有两内点，取 （内部包含）
+				{
+					new_tripoint.push_back(tripoint[m]);
+					new_tripoint.push_back(tripoint[m + 1]);
+					continue;
+				}
 
-		//	}
+			}
 
-		//	if (interpoint.size() == 2)   //有两交点
-		//	{
-		//		if ((a == 0) && (b == 0))   //有两交点且无内点，取两交点
-		//		{
-		//			new_tripoint.push_back(interpoint[0]);
-		//			new_tripoint.push_back(interpoint[1]);
-		//			continue;
-		//		}
-		//		if ((a == 1) && (b == 0))//有两交点且一个内点 两两相连，注意顺序 
-		//		{
-		//			new_tripoint.push_back(tripoint[m]);
-		//			new_tripoint.push_back(mindistance(tripoint[m], interpoint[0], interpoint[1]));
-		//			continue;
-		//		}
-		//		if ((a == 0) && (b == 1))//有两交点且一个内点 两两相连，注意顺序
-		//		{
-		//			new_tripoint.push_back(tripoint[m + 1]);
-		//			new_tripoint.push_back(mindistance(tripoint[m + 1], interpoint[0], interpoint[1]));
-		//			continue;
-		//		}
-		//		if ((a == 1) && (b == 1))//有两交点且两个内点 两两相连，注意顺序 
-		//		{
-		//			new_tripoint.push_back(tripoint[m]);
-		//			new_tripoint.push_back(mindistance(tripoint[m], interpoint[0], interpoint[1]));
-		//			new_tripoint.push_back(mindistance(tripoint[m + 1], interpoint[0], interpoint[1]));
-		//			new_tripoint.push_back(tripoint[m + 1]);
-		//			continue;
-		//		}
+			if (interpoint.size() == 2)   //有两交点
+			{
+				if ((a == 0) && (b == 0))   //有两交点且无内点，取两交点
+				{
+					new_tripoint.push_back(interpoint[0]);
+					new_tripoint.push_back(interpoint[1]);
+					continue;
+				}
+				if ((a == 1) && (b == 0))//有两交点且一个内点 两两相连，注意顺序 
+				{
+					new_tripoint.push_back(tripoint[m]);
+					new_tripoint.push_back(mindistance(tripoint[m], interpoint[0], interpoint[1]));
+					continue;
+				}
+				if ((a == 0) && (b == 1))//有两交点且一个内点 两两相连，注意顺序
+				{
+					new_tripoint.push_back(tripoint[m + 1]);
+					new_tripoint.push_back(mindistance(tripoint[m + 1], interpoint[0], interpoint[1]));
+					continue;
+				}
+				if ((a == 1) && (b == 1))//有两交点且两个内点 两两相连，注意顺序 
+				{
+					new_tripoint.push_back(tripoint[m]);
+					new_tripoint.push_back(mindistance(tripoint[m], interpoint[0], interpoint[1]));
+					new_tripoint.push_back(mindistance(tripoint[m + 1], interpoint[0], interpoint[1]));
+					new_tripoint.push_back(tripoint[m + 1]);
+					continue;
+				}
 
-		//	}
+			}
 
-		//}
+		}
 
-		//modelfill.push_back(new_tripoint);
-		modelfill.push_back(tripoint);
+		modelfill.push_back(new_tripoint);
 		new_tripoint.clear();
 		printf("%.4lf%%\r", i * 100.0 / model.size());
 	}
@@ -504,55 +496,51 @@ void main(int argc, char** argv)
 
 	err = fopen_s(&fp, "test gcode.txt", "a"); //若return 1 , 则将指向这个文件的文件流给fp1
 
-	fprintf(fp, "M190 S70.000000\n");
-	fprintf(fp, "M109 S210.000000\n");
-	fprintf(fp, "G21        ;metric values\n");
-	fprintf(fp, "G90        ;absolute positioning\n");
-	fprintf(fp, "M82        ;set extruder to absolute mode\n");
-	fprintf(fp, "M107       ;start with the fan off\n");
-	fprintf(fp, "G28 X0 Y0  ;move X/Y to min endstops\n");
-	fprintf(fp, "G28 Z0     ;move Z to min endstops\n");
-	fprintf(fp, "G1 Z15.0 F9000 ;move the platform down 15mm\n");
+	fprintf(fp, "M104 S190\n");
+	fprintf(fp, "M105\n");
+	fprintf(fp, "M82;set extruder to absolute mode\n");
+	fprintf(fp, "G28;move X/Y to min endstops\n");
+	fprintf(fp, "G1 Z15.0 F6000 ;move the platform down 15mm\n");
 	fprintf(fp, "G92 E0                  ;zero the extruded length\n");
-	fprintf(fp, "G1 F200 E3              ;extrude 3mm of feed stock\n");
-	fprintf(fp, "G92 E0                  ;zero the extruded length again\n");
-	fprintf(fp, "G1 F9000\n");
-	fprintf(fp, ";Put printing message on LCD screen\n");
-	fprintf(fp, "M117 Printing...\n");
+	fprintf(fp, "G1 F200 E3             ;extrude 3mm of feed stock\n");
+	fprintf(fp, "G92 E0\n");
+	fprintf(fp, "G92 E0\n");
+	fprintf(fp, "G1 F1500 E-6.5\n");
 
-	fprintf(fp, ";Layer count: %d\n", modelfill.size() + 1);
-	fprintf(fp, "M106 S255\n");
+	fprintf(fp, ";LAYER_COUNT: %d\n", modelfill.size() + 1);
 	double E = 0;
-	for (int i = 0; i < model.size(); i++) //每一层
+	for (int i = 0; i < model.size(); i++) //每一层 i代表层数
 	{
-		fprintf(fp, ";LAYER:%d\n", i);
+		fprintf(fp, ";LAYER:%d\n", i);	
+		fprintf(fp, "G0 F2000 X%.3f Y%.3f Z%.3f\n", model[i][0].x, model[i][0].y, 0.300 + i * 0.200);
 		fprintf(fp, ";TYPE:OUTLINE\n");
-		/*fprintf(fp, "G0 F9000 X%.3f Y%.3f Z%.3f\n", model[i][0].x, model[i][0].y, 0.300 + i * 0.200);
-		fprintf(fp, "G1 F1800 X%.3f Y%.3f E%.5f\n", model[i][1].x, model[i][1].y, E += distance(model[i][0], model[i][1]));
+		fprintf(fp, "G1 F1000 X%.3f Y%.3f E%.5f\n", model[i][1].x, model[i][1].y, E += distance(model[i][0], model[i][1]));
 		for (int j = 2; j < model[i].size(); j++)
 		{
 			fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n",model[i][j].x, model[i][j].y, E += distance(model[i][j-1], model[i][j]));
 		}
-		fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n", model[i][0].x, model[i][0].y, E += distance(model[i][model[i].size()-1], model[i][0]));*/
+		fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n", model[i][0].x, model[i][0].y, E += distance(model[i][model[i].size()-1], model[i][0])); //画一个圈，要回原点
+
 		fprintf(fp, ";TYPE:FILL\n");
 		for (int k = 1; k < modelfill[i].size(); k+=2)
 		{
-			fprintf(fp, "G0 F9000 X%.3f Y%.3f\n", modelfill[i][k-1].x, modelfill[i][k-1].y);
-			fprintf(fp, "G1 F1320 X%.3f Y%.3f E%.5f\n", modelfill[i][k].x, modelfill[i][k].y, E += distance(modelfill[i][k-1], modelfill[i][k]));
+			fprintf(fp, "G0 F2000 X%.3f Y%.3f\n", modelfill[i][k-1].x, modelfill[i][k-1].y);
+			fprintf(fp, "G1 F1000 X%.3f Y%.3f E%.5f\n", modelfill[i][k].x, modelfill[i][k].y, E += distance(modelfill[i][k-1], modelfill[i][k]));
 		}
 	}
 
 	fprintf(fp, "M107\n");
-	fprintf(fp, ";End GCode\n");
 	fprintf(fp, "M104 S0                     ;extruder heater off\n");
 	fprintf(fp, "M140 S0                     ;heated bed heater off (if you have it)\n");
-	fprintf(fp, "G91                                    ;relative positioning\n");
+	fprintf(fp, "G92 E1                                    ;relative positioning\n");
 	fprintf(fp, "G1 E-1 F300                            ;retract the filament a bit before lifting the nozzle, to release some of the pressure\n");
 	fprintf(fp, "G1 Z+0.5 E-5 X-20 Y-20 F9000 ;move Z up a bit and retract filament even more\n");
 	fprintf(fp, "G28 X0 Y0                              ;move X/Y to min endstops, so the head is out of the way\n");
 	fprintf(fp, "M84                         ;steppers off\n");
-	fprintf(fp, "G90                         ;absolute positioning\n");
-	
+	fprintf(fp, "M82 ;absolute extrusion mode\n");
+	fprintf(fp, "M104 S0\n");
+	fprintf(fp, ";End GCode\n");
+
 	fclose(fp);
 
 	printf("Gcode writing complete,file save as \"test gcode.txt\"\n");
