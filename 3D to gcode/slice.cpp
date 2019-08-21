@@ -1,6 +1,5 @@
 #include"slice.h"
 
-
 vector<point>coord;
 point p;
 
@@ -11,8 +10,7 @@ MyMesh mesh;
 
 //extern const string file_1 = "cow_file.obj";
 extern const string file_1 = "test.obj";
-
-extern const string file_2 = "cactus.ply";
+extern const string file_2 = "buddha_head.obj";
 extern const string file_3 = "Armadillo.off";
 int currentfile = 1;
 
@@ -308,7 +306,6 @@ void findIntersect() {
 	cout << "'part' represents which part of the cow may be taken from this section." << endl;
 	printf("\n--------------------------------------------------------------------------------------------\n");
 	printf("--------------------------------------------------------------------------------------------\n\n\n");*/
-	printf("slicing...\n");
 	for (double i = Bmin_z; i < Bmax_z; ) {
 		MyMesh::Point pt;
 		MyMesh::Point pilist[1000];
@@ -336,27 +333,27 @@ void findIntersect() {
 			//printf("-------------------------------------------------\n");
 			if (Xport < 18) {
 				//printf("第%d个截面环\t    %.4f%%    头部\n", countt + 1, Xport);
-				printf("%.4f%%\r", Xport);
+				printf("%.4f%%\r", Xport/10);
 			}
 			else if (Xport < 25) {
 				//printf("第%d个截面环\t    %.4f%%    颈部\n", countt + 1, Xport);
-				printf("%.4f%%\r", Xport);
+				printf("%.4f%%\r", Xport/10);
 			}
 			else if (Xport < 35) {
 				//printf("第%d个截面环\t    %.4f%%    前胸\n", countt + 1, Xport);
-				printf("%.4f%%\r", Xport);
+				printf("%.4f%%\r", Xport/10);
 			}
 			else if (Xport < 77) {
 				//printf("第%d个截面环\t    %.4f%%    躯干\n", countt + 1, Xport);
-				printf("%.4f%%\r", Xport);
+				printf("%.4f%%\r", Xport/10);
 			}
 			else if (Xport < 96) {
 				//printf("第%d个截面环\t    %.4f%%    臀部\n", countt + 1, Xport);
-				printf("%.4f%%\r", Xport);
+				printf("%.4f%%\r", Xport/10);
 			}
 			else {
 				//printf("第%d个截面环\t    %.4f%%    尾部\n", countt + 1, Xport);
-				printf("%.4f%%\r", Xport);
+				printf("%.4f%%\r", Xport/10);
 			}
 			int j; int numdiff = 0; MyMesh::Point diff = pilist[0];
 			for (j = 0; j < pnum; j++) {
@@ -414,6 +411,6 @@ void findIntersect() {
 			i += 5;
 		}
 		*/
-		i += 1;
+		i += 0.3;
 	}
 }

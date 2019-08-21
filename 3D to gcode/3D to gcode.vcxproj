@@ -20,14 +20,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="slice.cpp" />
+    <ClCompile Include="new main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="slice.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="test gcode.txt" />

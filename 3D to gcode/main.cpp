@@ -22,6 +22,7 @@ vector<point>new_tripoint;  //新的一层的变化线 线段坐标 成对
 vector<point>interpoint; //交点坐标
 
 extern const string file_1;  //slice
+extern const string file_2; 
 
 vector<vector<point> >model; //slice  整个模型的，分层的轮廓线坐标，一维层数，二维此层的罗廓线点坐标
 vector<vector<point> >modelfill(model); //完成的model填充线，一维层数，二维此层的变化线 线段坐标
@@ -131,7 +132,7 @@ point mindistance(point a, point b, point c) //在b 和 c中返回离a 最近的点
 
 double distance(point a, point b)
 {
-	return sqrt( pow((a.x - b.x), 2) + pow((a.y - b.y), 2) ) * 0.1;
+	return sqrt( pow((a.x - b.x), 2) + pow((a.y - b.y), 2) );
 }
 
 void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置
@@ -358,8 +359,8 @@ void myDisplay(void)
 
 void main(int argc, char** argv)
 {
-
-	readfile(file_1);
+	printf("slicing...\n");
+	readfile(file_2);
 	BoundingBox();
 	findIntersect();  //前三个函数切片，产生model
 
@@ -498,6 +499,7 @@ void main(int argc, char** argv)
 
 	fprintf(fp, "M104 S190\n");
 	fprintf(fp, "M105\n");
+	fprintf(fp, "M109 S190\n");
 	fprintf(fp, "M82;set extruder to absolute mode\n");
 	fprintf(fp, "G28;move X/Y to min endstops\n");
 	fprintf(fp, "G1 Z15.0 F6000 ;move the platform down 15mm\n");
@@ -509,23 +511,58 @@ void main(int argc, char** argv)
 
 	fprintf(fp, ";LAYER_COUNT: %d\n", modelfill.size() + 1);
 	double E = 0;
-	for (int i = 0; i < model.size(); i++) //每一层 i代表层数
+
+	fprintf(fp, ";LAYER:%d\n", 0);
+	for (int j = 0; j < 18; j++) //底座
+	{
+		fprintf(fp, "G0 F300 X%.3f Y%.3f Z%.3f\n", j * 4 + 30.00, 30.00,  0.500);
+		fprintf(fp, "G1 F300 X%.3f Y%.3f E%.3f\n", j * 4 + 30.00, 100.00, E += distance({ j * 4 + 30.00, 30.00 }, { j * 4 + 30.00, 100.00 })*0.3);
+		fprintf(fp, "G1 F300 X%.3f Y%.3f E%.3f\n", j * 4 + 32.00, 100.00, E += distance({ j * 4 + 30.00, 100.00 }, { j * 4 + 32.00, 100.00 })*0.3);
+		fprintf(fp, "G1 F300 X%.3f Y%.3f E%.3f\n", j * 4 + 32.00, 30.00,  E += distance({ j * 4 + 32.00, 100.00 }, { j * 4 + 32.00, 30.00 })*0.3);
+		fprintf(fp, "G1 F300 X%.3f Y%.3f E%.3f\n", j * 4 + 34.00, 30.00,  E += distance({ j * 4 + 32.00, 30.00 }, { j * 4 + 34.00, 30.00 })*0.3);
+
+	}
+
+	//for (int i = 0; i < 1; i++) //第一层打的粗一些，相当于底座
+	//{
+	//	fprintf(fp, ";LAYER:%d\n", i);
+
+	//	fprintf(fp, "G0 F1000 X%.3f Y%.3f Z%.3f\n", 0.00, 0.00, 0.400 + i * 0.200);  //原点
+	//	fprintf(fp, "G1 F1000 X%.3f Y%.3f E%.3f\n", model[i][0].x, model[i][0].y, E += distance({0.0}, model[i][0])*0.6);
+	//	fprintf(fp, ";TYPE:OUTLINE\n");
+	//	for (int j = 1; j < model[i].size(); j++)
+	//	{
+	//		fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n", model[i][j].x, model[i][j].y, E += distance(model[i][j - 1], model[i][j])*0.6);
+	//	}
+	//	fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n", model[i][0].x, model[i][0].y, E += distance(model[i][model[i].size() - 1], model[i][0])*0.6); //画一个圈，要回原点
+	//	fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n", model[i][1].x, model[i][1].y, E += distance(model[i][model[i].size() - 1], model[i][0])*0.01);
+
+	//	fprintf(fp, ";TYPE:FILL\n");
+	//	for (int k = 1; k < modelfill[i].size(); k += 2)
+	//	{
+	//		fprintf(fp, "G0 F2600 X%.3f Y%.3f\n", modelfill[i][k - 1].x, modelfill[i][k - 1].y);
+	//		fprintf(fp, "G1 F1000 X%.3f Y%.3f E%.5f\n", modelfill[i][k].x, modelfill[i][k].y, E += distance(modelfill[i][k - 1], modelfill[i][k])*0.1);
+	//	}
+	//}
+
+	for (int i = 1; i < model.size(); i++) //每一层 i代表层数
 	{
 		fprintf(fp, ";LAYER:%d\n", i);	
-		fprintf(fp, "G0 F2000 X%.3f Y%.3f Z%.3f\n", model[i][0].x, model[i][0].y, 0.300 + i * 0.200);
+		fprintf(fp, "G0 F2000 X%.3f Y%.3f Z%.3f\n", model[i][0].x, model[i][0].y, 0.500 + i * 0.300);
 		fprintf(fp, ";TYPE:OUTLINE\n");
-		fprintf(fp, "G1 F1000 X%.3f Y%.3f E%.5f\n", model[i][1].x, model[i][1].y, E += distance(model[i][0], model[i][1]));
+		fprintf(fp, "G1 F1000 X%.3f Y%.3f E%.5f\n", model[i][1].x, model[i][1].y, E += distance(model[i][0], model[i][1])*0.1);
 		for (int j = 2; j < model[i].size(); j++)
 		{
-			fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n",model[i][j].x, model[i][j].y, E += distance(model[i][j-1], model[i][j]));
+			fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n",model[i][j].x, model[i][j].y, E += distance(model[i][j-1], model[i][j])*0.1);
 		}
-		fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n", model[i][0].x, model[i][0].y, E += distance(model[i][model[i].size()-1], model[i][0])); //画一个圈，要回原点
+		fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n", model[i][0].x, model[i][0].y, E += distance(model[i][model[i].size()-1], model[i][0])*0.1); //画一个圈，要回原点
 
+		fprintf(fp, "G1 X%.3f Y%.3f E%.5f\n", model[i][1].x, model[i][1].y, E += distance(model[i][model[i].size()-1], model[i][0])*0.01);
 		fprintf(fp, ";TYPE:FILL\n");
 		for (int k = 1; k < modelfill[i].size(); k+=2)
 		{
 			fprintf(fp, "G0 F2000 X%.3f Y%.3f\n", modelfill[i][k-1].x, modelfill[i][k-1].y);
-			fprintf(fp, "G1 F1000 X%.3f Y%.3f E%.5f\n", modelfill[i][k].x, modelfill[i][k].y, E += distance(modelfill[i][k-1], modelfill[i][k]));
+			fprintf(fp, "G1 F1000 X%.3f Y%.3f E%.5f\n", modelfill[i][k].x, modelfill[i][k].y, E += distance(modelfill[i][k-1], modelfill[i][k])*0.1);
 		}
 	}
 

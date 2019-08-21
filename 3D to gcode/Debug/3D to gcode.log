@@ -1,20 +1,87 @@
-﻿  main.cpp
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(126): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(127): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(139): warning C4305: “初始化”: 从“double”到“float”截断
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(143): warning C4305: “初始化”: 从“double”到“float”截断
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(240): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(274): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(334): warning C4018: “<”: 有符号/无符号不匹配
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(338): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(345): warning C4018: “<”: 有符号/无符号不匹配
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(349): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(360): warning C4326: “main”的返回类型应为“int”而非“void”
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(378): warning C4018: “<”: 有符号/无符号不匹配
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(384): warning C4018: “<”: 有符号/无符号不匹配
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(393): warning C4018: “<”: 有符号/无符号不匹配
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(396): warning C4018: “<”: 有符号/无符号不匹配
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(512): warning C4018: “<”: 有符号/无符号不匹配
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(518): warning C4018: “<”: 有符号/无符号不匹配
-c:\users\ly\source\repos\3d to gcode\3d to gcode\main.cpp(525): warning C4018: “<”: 有符号/无符号不匹配
+﻿  new main.cpp
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(43): warning C4305: “初始化”: 从“double”到“float”截断
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(67): warning C4305: “初始化”: 从“double”到“float”截断
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(149): warning C4101: “ne1”: 未引用的局部变量
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(149): warning C4101: “nf”: 未引用的局部变量
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(347): warning C4244: “=”: 从“double”转换到“Scalar”，可能丢失数据
+          with
+          [
+              Scalar=float
+          ]
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(353): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(356): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(360): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(545): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(546): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(558): warning C4305: “初始化”: 从“double”到“float”截断
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(562): warning C4305: “初始化”: 从“double”到“float”截断
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(659): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(693): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(753): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(757): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(764): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(768): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(779): warning C4326: “main”的返回类型应为“int”而非“void”
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(788): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(794): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(803): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(806): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(943): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(951): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(959): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\geometry\vector11t.hh(738): warning C4244: “参数”: 从“const OtherScalar”转换到“const Scalar”，可能丢失数据
+          with
+          [
+              OtherScalar=double
+          ]
+          and
+          [
+              Scalar=float
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(394): note: 参见对正在编译的函数 模板 实例化“OpenMesh::VectorT<float,3> &OpenMesh::vectorize<float,3,double>(OpenMesh::VectorT<float,3> &,const OtherScalar &)”的引用
+          with
+          [
+              OtherScalar=double
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(393): note: 编译 类 模板 成员函数 "void OpenMesh::PolyMeshT<Kernel>::calc_vertex_normal_fast(OpenMesh::VertexHandle,OpenMesh::VectorT<float,3> &) const" 时
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(381): note: 参见对正在编译的函数 模板 实例化“void OpenMesh::PolyMeshT<Kernel>::calc_vertex_normal_fast(OpenMesh::VertexHandle,OpenMesh::VectorT<float,3> &) const”的引用
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(379): note: 编译 类 模板 成员函数 "OpenMesh::VectorT<float,3> OpenMesh::PolyMeshT<Kernel>::calc_vertex_normal(OpenMesh::VertexHandle) const" 时
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(458): note: 参见对正在编译的函数 模板 实例化“OpenMesh::VectorT<float,3> OpenMesh::PolyMeshT<Kernel>::calc_vertex_normal(OpenMesh::VertexHandle) const”的引用
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(265): note: 编译 类 模板 成员函数 "void OpenMesh::PolyMeshT<Kernel>::update_face_normals(void)" 时
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(250): note: 参见对正在编译的函数 模板 实例化“void OpenMesh::PolyMeshT<Kernel>::update_face_normals(void)”的引用
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\trimesht.cc(80): note: 编译 类 模板 成员函数 "OpenMesh::VectorT<float,3> OpenMesh::TriMeshT<OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<Traits,true>,OpenMesh::TriConnectivity>>::calc_face_normal(OpenMesh::FaceHandle) const" 时
+          with
+          [
+              Traits=MyTraits
+          ]
+  c:\users\ly\source\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\trimesh_arraykernelt.hh(101): note: 参见对正在编译的 类 模板 实例化 "OpenMesh::TriMeshT<OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<Traits,true>,OpenMesh::TriConnectivity>>" 的引用
+          with
+          [
+              Traits=MyTraits
+          ]
+  c:\users\ly\source\repos\3d to gcode\3d to gcode\new main.cpp(70): note: 参见对正在编译的 类 模板 实例化 "OpenMesh::TriMesh_ArrayKernelT<MyTraits>" 的引用
   3D to gcode.vcxproj -> C:\Users\ly\source\repos\3D to gcode\Debug\3D to gcode.exe
