@@ -42,6 +42,7 @@ const string file_6 = "bunnyr.obj";
 const string file_7 = "half buddha.obj";
 const string file_8 = "Mouse.obj";
 const string file_9 = "Mouse.stl";
+const string file_10 = "cell.obj";
 int currentfile = 1;
 
 const float z = 0.20;   //层厚
@@ -570,7 +571,7 @@ double distance(point a, point b)
 
 void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置  1层
 {
-	float a = 30.0f;// 三角形边长 这里来控制缩放
+	float a = 10.0f;// 三角形边长 这里来控制缩放
 
 	float width = 0.4; //喷头的宽度,或者变化的速率，现在看来就是每次偏移的距离，和真实碰头宽度配合决定了角度，即变化率
 
@@ -1042,17 +1043,19 @@ void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置  1层
 //
 //}
 
-//void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置         三层
+//void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置         三层第三版
 //{
 //	float a = 30.0f;// 三角形边长 这里来控制缩放 当三角形厚度增加，不可不考虑壁厚，这里是内三角形边长
 //
 //	float width = 0.4; //上层和下层的偏移的距离，和真实喷头宽度配合决定了角度，即变化率，范围(0,一个喷宽)
-//	//这个变量控制线与线之间的距离，在下面的句意中所有路径间距0.5*width，在实际打印中喷头宽度要大于0.5*width,打双层时要等于0.5*width，打3层时等于0.25*width
 //
-//	float offset = 1.6;  //同层不同路径之间的距离，等于一个喷头宽度
+//	float offset = 0.6;  //同层相邻路径之间的距离，理论上等于一个喷头宽度。以下代码中两线之间距离等于offset
 //
-//	float x = a + 2 * sqrt(3)*0.33*offset + 0.25*offset;  //x坐标右移单位 这里是外三角形边长
-//	float y = 0.5*sqrt(3)*a + offset + 0.25*offset;  //y坐标上移单位
+//	float x = a + 2 * sqrt(3)*offset;  //x坐标右移复制 
+//	float y = 0.5*sqrt(3)*a + 2 * offset + offset; //y坐标上移复制
+//
+//	float x0;      //网格调整平移
+//	float y0;
 //
 //	int m = 0;  //行
 //	int n = 0;  //列
@@ -1083,69 +1086,97 @@ void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置  1层
 //	{
 //	case 1:
 //	{
-//		// for (m; m < 1; m++)  //阶段一：w*i 在 0——sqrt(3)/3 *a
-//		// {
-//		   //for (n; n < 1; n++)
-//		   //{
-//		for (m; m < (120 * 2) / (sqrt(3)*a); m++)  //阶段一：w*i 在 0——sqrt(3)/3 *a
+//		//for (m; m < 1; m++)  //阶段一：w*i 在 0——sqrt(3)/3 *a
+//		//{
+//		//  for (n; n < 1; n++)
+//		//  {
+//		for (m; m < (120 * 2) / (sqrt(3)*x); m++)  //阶段一：w*i 在 0——sqrt(3)/3 *a
 //		{
-//			for (n; n < 170 / a; n++)
+//			for (n; n < 170 / x; n++)
 //			{
-//				point A3 = { m*0.5*x + n * x + 0.5*a ,                         m*y + sqrt(3) * 0.5 * a - width * (i - 1) + 0.5*offset };
 //
-//				point B3 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - 0.25*sqrt(3)*offset ,       m*y + 0.5*width * (i - 1) - 0.25*offset };
 //
-//				point C3 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + 0.25*sqrt(3)*offset,   m*y + 0.5*width * (i - 1) - 0.25*offset };
+//				point A = { m*0.5*x + n * x + 0.5*a ,              m*y + 0.5*sqrt(3)*a - width * (i - 1) };
 //
-//				point D3 = { m*0.5*x + n * x + 0.5*a ,                         m*y + 0.5*sqrt(3)*a + 0.5*offset };
+//				point D3 = { m*0.5*x + n * x + 0.5*a ,              m*y + 0.5*sqrt(3)*a + 2 * offset };//A
 //
-//				point E3 = { m * 0.5 * x + n * x + 0 - 0.25*sqrt(3)*offset,                         m*y + 0 - 0.25*offset };
+//				point D1 = { m*0.5*x + n * x + 0.5*a - offset,      m*y + 0.5*sqrt(3)*a + 2 * offset - 0.333*sqrt(3)*offset };//D3
 //
-//				point F3 = { m*0.5*x + n * x + a + 0.25*sqrt(3)*offset,                             m*y + 0 - 0.25*offset };
+//				point D2 = { m*0.5*x + n * x + 0.5*a + offset,      m*y + 0.5*sqrt(3)*a + 2 * offset - 0.333*sqrt(3)*offset };//D3
 //
-//				point A = { m*0.5*x + n * x + 0.5*a ,                         m * y + sqrt(3) * 0.5 * a - width * (i - 1) };
+//				point A3 = { m*0.5*x + n * x + 0.5*a ,              m*y + 0.5*sqrt(3)*a - width * (i - 1) + 2 * offset }; //A
 //
-//				point A1 = { m*0.5*x + n * x + 0.5*a - 0.167*sqrt(3)*offset ,    m*y + sqrt(3) * 0.5 * a - width * (i - 1) + 0.5*offset };
+//				point A1 = { m*0.5*x + n * x + 0.5*a - sqrt(3)*offset ,     m*y + 0.5*sqrt(3)*a - width * (i - 1) + 2 * offset - offset }; //由A3推导出
 //
-//				point A2 = { m*0.5*x + n * x + 0.5*a + 0.167*sqrt(3)*offset,      m*y + sqrt(3) * 0.5 * a - width * (i - 1) + 0.5*offset };
+//				point A2 = { m*0.5*x + n * x + 0.5*a + sqrt(3)*offset,      m*y + 0.5*sqrt(3)*a - width * (i - 1) + 2 * offset - offset }; //由A3推导出
 //
-//				point B = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) ,       m*y + 0.5*width * (i - 1) };
+//				point A4 = { m*0.5*x + n * x + 0.5*a + offset ,             m*y + 0.5*sqrt(3)*a - width * (i - 1) + 2 * offset - 0.333*sqrt(3)*offset }; //由A3推导出
 //
-//				point B1 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - 0.33*sqrt(3)*offset ,       m*y + 0.5*width * (i - 1) };
+//				point A5 = { m*0.5*x + n * x + 0.5*a - offset,              m*y + 0.5*sqrt(3)*a - width * (i - 1) + 2 * offset - 0.333*sqrt(3)*offset }; //由A3推导出
 //
-//				point B2 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - 0.167*sqrt(3)*offset ,       m*y + 0.5*width * (i - 1) - 0.5*offset };
 //
-//				point C = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) ,   m*y + 0.5*width * (i - 1) };
+//				point B = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) ,     m*y + 0.5*width * (i - 1) };
 //
-//				point C1 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + 0.167*sqrt(3)*offset ,   m*y + 0.5*width * (i - 1) - 0.5*offset };
+//				point E3 = { m*0.5*x + n * x + 0 - sqrt(3)*offset,            m*y + 0 - offset };
 //
-//				point C2 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + 0.33*sqrt(3)*offset ,   m*y + 0.5*width * (i - 1) };
+//				point E1 = { m*0.5*x + n * x + 0 - sqrt(3)*offset,            m*y + 0 - offset + 0.333 * 2 * sqrt(3)*offset };//e3
 //
-//				point D1 = { m*0.5*x + n * x + 0.5*a - 0.167*sqrt(3)*offset,                         m*y + 0.5*sqrt(3)*a + 0.5*offset };
+//				point E2 = { m*0.5*x + n * x + 0 - sqrt(3)*offset + offset,   m*y + 0 - offset - 0.333*sqrt(3)*offset };//e3
 //
-//				point D2 = { m*0.5*x + n * x + 0.5*a + 0.167*sqrt(3)*offset,                         m*y + 0.5*sqrt(3)*a + 0.5*offset };
+//				point B3 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - sqrt(3)*offset ,              m*y + 0.5*width * (i - 1) - offset };
 //
-//				point E1 = { m * 0.5 * x + n * x + 0 - 0.33*sqrt(3)*offset ,                         m*y + 0 };
+//				point B1 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - sqrt(3)*offset ,              m*y + 0.5*width * (i - 1) - offset + 2 * offset };//由B3
 //
-//				point E2 = { m * 0.5 * x + n * x + 0 - 0.167*sqrt(3)*offset ,                         m*y + 0 - 0.5*offset };
+//				point B2 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) ,                               m*y + 0.5*width * (i - 1) - 2 * offset }; //由B
 //
-//				point F1 = { m*0.5*x + n * x + a + 0.33*sqrt(3)*offset,                             m*y + 0 };
+//				point B4 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - sqrt(3)*offset + offset ,     m*y + 0.5*width * (i - 1) - offset - 0.333*sqrt(3)*offset };//由B3
 //
-//				point F2 = { m*0.5*x + n * x + a + 0.167*sqrt(3)*offset,                             m*y + 0 - 0.5*offset };
+//				point B5 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - sqrt(3)*offset ,              m*y + 0.5*width * (i - 1) - offset + 0.333 * 2 * sqrt(3)*offset }; //由B3
+//
+//
+//
+//
+//				point C = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) ,    m*y + 0.5*width * (i - 1) };
+//
+//				point F3 = { m*0.5*x + n * x + a + sqrt(3)*offset ,              m*y + 0 - offset };
+//
+//				point F1 = { m*0.5*x + n * x + a + sqrt(3)*offset ,              m*y + 0 - offset + 0.333 * 2 * sqrt(3)*offset }; //由f3
+//
+//				point F2 = { m*0.5*x + n * x + a + sqrt(3)*offset - offset,      m*y + 0 - offset - 0.333*sqrt(3)*offset };//由f3
+//
+//				point C3 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + sqrt(3)*offset,             m*y + 0.5*width * (i - 1) - offset };
+//
+//				point C1 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) ,                             m*y + 0.5*width * (i - 1) - offset - offset }; //由c
+//
+//				point C2 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + sqrt(3)*offset ,            m*y + 0.5*width * (i - 1) - offset + 2 * offset };//由c3
+//
+//				point C4 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + sqrt(3)*offset  ,           m*y + 0.5*width * (i - 1) - offset + 0.333 * 2 * sqrt(3)*offset }; //由c3
+//
+//				point C5 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + sqrt(3)*offset - offset,    m*y + 0.5*width * (i - 1) - offset - 0.333*sqrt(3)*offset };//由c3
+//
+//
 //
 //
 //				tripoint.push_back(trans(E3, -50, 0)); tripoint.push_back(trans(E1, -50, 0));
-//				tripoint.push_back(trans(E1, -50, 0)); tripoint.push_back(trans(B1, -50, 0));
+//				tripoint.push_back(trans(E1, -50, 0)); tripoint.push_back(trans(B5, -50, 0));
+//				tripoint.push_back(trans(B5, -50, 0)); tripoint.push_back(trans(B1, -50, 0));
 //				tripoint.push_back(trans(B1, -50, 0)); tripoint.push_back(trans(A1, -50, 0));
-//				tripoint.push_back(trans(A1, -50, 0)); tripoint.push_back(trans(D1, -50, 0));
-//				tripoint.push_back(trans(D1, -50, 0)); tripoint.push_back(trans(D2, -50, 0));
-//				tripoint.push_back(trans(D2, -50, 0)); tripoint.push_back(trans(A2, -50, 0));
+//				tripoint.push_back(trans(A1, -50, 0)); tripoint.push_back(trans(A5, -50, 0));
+//				tripoint.push_back(trans(A5, -50, 0)); tripoint.push_back(trans(D1, -50, 0));
+//				tripoint.push_back(trans(D1, -50, 0)); tripoint.push_back(trans(D3, -50, 0));
+//				tripoint.push_back(trans(D3, -50, 0)); tripoint.push_back(trans(D2, -50, 0));
+//				tripoint.push_back(trans(D2, -50, 0)); tripoint.push_back(trans(A4, -50, 0));
+//				tripoint.push_back(trans(A4, -50, 0)); tripoint.push_back(trans(A2, -50, 0));
 //				tripoint.push_back(trans(A2, -50, 0)); tripoint.push_back(trans(C2, -50, 0));
-//				tripoint.push_back(trans(C2, -50, 0)); tripoint.push_back(trans(F1, -50, 0));
-//				tripoint.push_back(trans(F1, -50, 0)); tripoint.push_back(trans(F2, -50, 0));
-//				tripoint.push_back(trans(F2, -50, 0)); tripoint.push_back(trans(C1, -50, 0));
+//				tripoint.push_back(trans(C2, -50, 0)); tripoint.push_back(trans(C4, -50, 0));
+//				tripoint.push_back(trans(C4, -50, 0)); tripoint.push_back(trans(F1, -50, 0));
+//				tripoint.push_back(trans(F1, -50, 0)); tripoint.push_back(trans(F3, -50, 0));
+//				tripoint.push_back(trans(F3, -50, 0)); tripoint.push_back(trans(F2, -50, 0));
+//				tripoint.push_back(trans(F2, -50, 0)); tripoint.push_back(trans(C5, -50, 0));
+//				tripoint.push_back(trans(C5, -50, 0)); tripoint.push_back(trans(C1, -50, 0));
 //				tripoint.push_back(trans(C1, -50, 0)); tripoint.push_back(trans(B2, -50, 0));
-//				tripoint.push_back(trans(B2, -50, 0)); tripoint.push_back(trans(E2, -50, 0));
+//				tripoint.push_back(trans(B2, -50, 0)); tripoint.push_back(trans(B4, -50, 0));
+//				tripoint.push_back(trans(B4, -50, 0)); tripoint.push_back(trans(E2, -50, 0));
 //				tripoint.push_back(trans(E2, -50, 0)); tripoint.push_back(trans(E3, -50, 0));
 //
 //				tripoint.push_back(trans(E3, -50, 0)); tripoint.push_back(trans(B3, -50, 0));
@@ -1170,60 +1201,87 @@ void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置  1层
 //		{
 //			for (n; n < 170 / a; n++)
 //			{
-//				point A3 = { m*0.5*x + n * x + 0.5*a ,                           m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a + 0.5*offset };
 //
-//				point B3 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - 0.25*sqrt(3)*offset ,     m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - 0.25*offset };
+//				point A = { m*0.5*x + n * x + 0.5*a ,               m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a };
 //
-//				point C3 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + 0.25*sqrt(3)*offset ,       m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - 0.25*offset };
+//				point D3 = { m*0.5*x + n * x + 0.5*a ,              m*y + 0.5*sqrt(3)*a + 2 * offset };//A
 //
-//				point D3 = { m*0.5*x + n * x + 0.5*a ,                           m*y + 0.5*sqrt(3)*a + 0.5*offset };
+//				point D1 = { m*0.5*x + n * x + 0.5*a - offset,      m*y + 0.5*sqrt(3)*a + 2 * offset - 0.333*sqrt(3)*offset };//D3
 //
-//				point E3 = { m * 0.5 * x + n * x + 0 - 0.25*sqrt(3)*offset,                           m*y + 0 - 0.25*offset };
+//				point D2 = { m*0.5*x + n * x + 0.5*a + offset,      m*y + 0.5*sqrt(3)*a + 2 * offset - 0.333*sqrt(3)*offset };//D3
 //
-//				point F3 = { m*0.5*x + n * x + a + 0.25*sqrt(3)*offset,                               m*y + 0 - 0.25*offset };
+//				point A3 = { m*0.5*x + n * x + 0.5*a ,              m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a + 2 * offset }; //A
 //
-//				point A = { m*0.5*x + n * x + 0.5*a ,                           m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a };
+//				point A1 = { m*0.5*x + n * x + 0.5*a - sqrt(3)*offset ,     m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a + 2 * offset - offset }; //由A3推导出
 //
-//				point A1 = { m*0.5*x + n * x + 0.5*a - 0.167*sqrt(3)*offset,     m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a + 0.5*offset };
+//				point A2 = { m*0.5*x + n * x + 0.5*a + sqrt(3)*offset,      m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a + 2 * offset - offset }; //由A3推导出
 //
-//				point A2 = { m*0.5*x + n * x + 0.5*a + 0.167*sqrt(3)*offset,     m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a + 0.5*offset };
+//				point A4 = { m*0.5*x + n * x + 0.5*a + offset ,             m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a + 2 * offset - 0.333*sqrt(3)*offset }; //由A3推导出
 //
-//				point B = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) ,     m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) };
+//				point A5 = { m*0.5*x + n * x + 0.5*a - offset,              m*y + width * (i - 1) - sqrt(3)*0.333*a + sqrt(3)*0.167*a + 2 * offset - 0.333*sqrt(3)*offset }; //由A3推导出
 //
-//				point B1 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - 0.33*sqrt(3)*offset ,     m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) };
 //
-//				point B2 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - 0.167*sqrt(3)*offset ,     m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - 0.5*offset };
+//				point B = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) , m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) };
 //
-//				point C = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) ,       m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) };
+//				point E3 = { m*0.5*x + n * x + 0 - sqrt(3)*offset,            m*y + 0 - offset };
 //
-//				point C1 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + 0.167*sqrt(3)*offset ,       m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - 0.5*offset };
+//				point E1 = { m*0.5*x + n * x + 0 - sqrt(3)*offset,            m*y + 0 - offset + 0.333 * 2 * sqrt(3)*offset };//e3
 //
-//				point C2 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + 0.33*sqrt(3)*offset,       m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) };
+//				point E2 = { m*0.5*x + n * x + 0 - sqrt(3)*offset + offset,   m*y + 0 - offset - 0.333*sqrt(3)*offset };//e3
 //
-//				point D1 = { m*0.5*x + n * x + 0.5*a - 0.167*sqrt(3)*offset,                         m*y + 0.5*sqrt(3)*a + 0.5*offset };
+//				point B3 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - sqrt(3)*offset ,              m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset };
 //
-//				point D2 = { m*0.5*x + n * x + 0.5*a + 0.167*sqrt(3)*offset,                         m*y + 0.5*sqrt(3)*a + 0.5*offset };
+//				point B1 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - sqrt(3)*offset ,              m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset + 2 * offset };//由B3
 //
-//				point E1 = { m * 0.5 * x + n * x + 0 - 0.33*sqrt(3)*offset ,                         m*y + 0 };
+//				point B2 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) ,                               m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - 2 * offset }; //由B
 //
-//				point E2 = { m * 0.5 * x + n * x + 0 - 0.167*sqrt(3)*offset ,                         m*y + 0 - 0.5*offset };
+//				point B4 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - sqrt(3)*offset + offset ,     m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset - 0.333*sqrt(3)*offset };//由B3
 //
-//				point F1 = { m*0.5*x + n * x + a + 0.33*sqrt(3)*offset,                             m*y + 0 };
+//				point B5 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - sqrt(3)*offset ,              m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset + 0.333 * 2 * sqrt(3)*offset }; //由B3
 //
-//				point F2 = { m*0.5*x + n * x + a + 0.167*sqrt(3)*offset,                             m*y + 0 - 0.5*offset };
+//
+//
+//				point C = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) ,        m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) };
+//
+//				point F3 = { m*0.5*x + n * x + a + sqrt(3)*offset ,              m*y + 0 - offset };
+//
+//				point F1 = { m*0.5*x + n * x + a + sqrt(3)*offset ,              m*y + 0 - offset + 0.333 * 2 * sqrt(3)*offset }; //由f3
+//
+//				point F2 = { m*0.5*x + n * x + a + sqrt(3)*offset - offset,      m*y + 0 - offset - 0.333*sqrt(3)*offset };//由f3
+//
+//				point C3 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + sqrt(3)*offset,             m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset };
+//
+//				point C1 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) ,                             m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset - offset }; //由c
+//
+//				point C2 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + sqrt(3)*offset ,            m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset + 2 * offset };//由c3
+//
+//				point C4 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + sqrt(3)*offset  ,           m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset + 0.333 * 2 * sqrt(3)*offset }; //由c3
+//
+//				point C5 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + sqrt(3)*offset - offset,    m*y + sqrt(3) * 0.333 * a - 0.5*width * (i - 1) - offset - 0.333*sqrt(3)*offset };//由c3
+//
+//
+//
 //
 //				tripoint.push_back(trans(E3, -50, 0)); tripoint.push_back(trans(E1, -50, 0));
-//				tripoint.push_back(trans(E1, -50, 0)); tripoint.push_back(trans(B1, -50, 0));
+//				tripoint.push_back(trans(E1, -50, 0)); tripoint.push_back(trans(B5, -50, 0));
+//				tripoint.push_back(trans(B5, -50, 0)); tripoint.push_back(trans(B1, -50, 0));
 //				tripoint.push_back(trans(B1, -50, 0)); tripoint.push_back(trans(A1, -50, 0));
-//				tripoint.push_back(trans(A1, -50, 0)); tripoint.push_back(trans(D1, -50, 0));
-//				tripoint.push_back(trans(D1, -50, 0)); tripoint.push_back(trans(D2, -50, 0));
-//				tripoint.push_back(trans(D2, -50, 0)); tripoint.push_back(trans(A2, -50, 0));
+//				tripoint.push_back(trans(A1, -50, 0)); tripoint.push_back(trans(A5, -50, 0));
+//				tripoint.push_back(trans(A5, -50, 0)); tripoint.push_back(trans(D1, -50, 0));
+//				tripoint.push_back(trans(D1, -50, 0)); tripoint.push_back(trans(D3, -50, 0));
+//				tripoint.push_back(trans(D3, -50, 0)); tripoint.push_back(trans(D2, -50, 0));
+//				tripoint.push_back(trans(D2, -50, 0)); tripoint.push_back(trans(A4, -50, 0));
+//				tripoint.push_back(trans(A4, -50, 0)); tripoint.push_back(trans(A2, -50, 0));
 //				tripoint.push_back(trans(A2, -50, 0)); tripoint.push_back(trans(C2, -50, 0));
-//				tripoint.push_back(trans(C2, -50, 0)); tripoint.push_back(trans(F1, -50, 0));
-//				tripoint.push_back(trans(F1, -50, 0)); tripoint.push_back(trans(F2, -50, 0));
-//				tripoint.push_back(trans(F2, -50, 0)); tripoint.push_back(trans(C1, -50, 0));
+//				tripoint.push_back(trans(C2, -50, 0)); tripoint.push_back(trans(C4, -50, 0));
+//				tripoint.push_back(trans(C4, -50, 0)); tripoint.push_back(trans(F1, -50, 0));
+//				tripoint.push_back(trans(F1, -50, 0)); tripoint.push_back(trans(F3, -50, 0));
+//				tripoint.push_back(trans(F3, -50, 0)); tripoint.push_back(trans(F2, -50, 0));
+//				tripoint.push_back(trans(F2, -50, 0)); tripoint.push_back(trans(C5, -50, 0));
+//				tripoint.push_back(trans(C5, -50, 0)); tripoint.push_back(trans(C1, -50, 0));
 //				tripoint.push_back(trans(C1, -50, 0)); tripoint.push_back(trans(B2, -50, 0));
-//				tripoint.push_back(trans(B2, -50, 0)); tripoint.push_back(trans(E2, -50, 0));
+//				tripoint.push_back(trans(B2, -50, 0)); tripoint.push_back(trans(B4, -50, 0));
+//				tripoint.push_back(trans(B4, -50, 0)); tripoint.push_back(trans(E2, -50, 0));
 //				tripoint.push_back(trans(E2, -50, 0)); tripoint.push_back(trans(E3, -50, 0));
 //
 //				tripoint.push_back(trans(E3, -50, 0)); tripoint.push_back(trans(B3, -50, 0));
@@ -1237,6 +1295,7 @@ void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置  1层
 //				tripoint.push_back(trans(A, -50, 0)); tripoint.push_back(trans(C, -50, 0));
 //				tripoint.push_back(trans(C, -50, 0)); tripoint.push_back(trans(B, -50, 0));
 //
+//
 //			}
 //			n = 0;
 //		}
@@ -1245,105 +1304,106 @@ void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置  1层
 //	case 3:
 //	{
 //		i = i - 2 * sqrt(3)*0.333*a / width;
-//		a = a + 0.33*sqrt(3)*offset;
-//		x = a + 2 * sqrt(3)*0.33*offset + 0.25*offset;  //x坐标右移单位 这里是外三角形边长
-//		y = 0.5*sqrt(3)*a + offset + 0.25*offset;  //y坐标上移单位
-//
-//		for (m; m < (120 * 2) / (sqrt(3)*a); m++)  //阶段三：和阶段一的区别只是Y坐标全变成负
+//		x0 = -50 - 0.5*x;
+//		y0 = -2 * offset + y;
+//		for (m; m < (120 * 2) / (sqrt(3)*x); m++)  //阶段一：w*i 在 0——sqrt(3)/3 *a
 //		{
-//			for (n; n < 170 / a; n++)
+//			for (n; n < 170 / x; n++)
 //			{
-//				point A3 = { m*0.5*x + n * x + 0.5*a ,                         m*y - sqrt(3) * 0.5 * a + width * (i - 1) - 0.5*offset };
 //
-//				point B3 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - 0.25*sqrt(3)*offset,       m*y - 0.5*width * (i - 1) + 0.25*offset };
+//				point A = { m*0.5*x + n * x + 0.5*a ,               m*y - 0.5*sqrt(3)*a + width * (i - 1) };
 //
-//				point C3 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + 0.25*sqrt(3)*offset,   m*y - 0.5*width * (i - 1) + 0.25*offset };
+//				point D3 = { m*0.5*x + n * x + 0.5*a ,              m*y - 0.5*sqrt(3)*a - 2 * offset };//A
 //
-//				point D3 = { m*0.5*x + n * x + 0.5*a ,                          m*y - 0.5*sqrt(3)*a - 0.5*offset };
+//				point D1 = { m*0.5*x + n * x + 0.5*a - offset,      m*y - 0.5*sqrt(3)*a - 2 * offset + 0.333*sqrt(3)*offset };//D3
 //
-//				point E3 = { m * 0.5 * x + n * x + 0 - 0.25*sqrt(3)*offset,                          m*y + 0 + 0.25*offset };
+//				point D2 = { m*0.5*x + n * x + 0.5*a + offset,      m*y - 0.5*sqrt(3)*a - 2 * offset + 0.333*sqrt(3)*offset };//D3
 //
-//				point F3 = { m*0.5*x + n * x + a + 0.25*sqrt(3)*offset ,                              m*y + 0 + 0.25*offset };
+//				point A3 = { m*0.5*x + n * x + 0.5*a ,              m*y - 0.5*sqrt(3)*a + width * (i - 1) - 2 * offset }; //A
 //
-//				point A = { m*0.5*x + n * x + 0.5*a ,                         m * y - sqrt(3) * 0.5 * a + width * (i - 1) };
+//				point A1 = { m*0.5*x + n * x + 0.5*a - sqrt(3)*offset ,     m*y - 0.5*sqrt(3)*a + width * (i - 1) - 2 * offset + offset }; //由A3推导出
 //
-//				point A1 = { m*0.5*x + n * x + 0.5*a - 0.167*sqrt(3)*offset ,    m*y - sqrt(3) * 0.5 * a + width * (i - 1) - 0.5*offset };
+//				point A2 = { m*0.5*x + n * x + 0.5*a + sqrt(3)*offset,      m*y - 0.5*sqrt(3)*a + width * (i - 1) - 2 * offset + offset }; //由A3推导出
 //
-//				point A2 = { m*0.5*x + n * x + 0.5*a + 0.167*sqrt(3)*offset,      m*y - sqrt(3) * 0.5 * a + width * (i - 1) - 0.5*offset };
+//				point A4 = { m*0.5*x + n * x + 0.5*a + offset ,             m*y - 0.5*sqrt(3)*a + width * (i - 1) - 2 * offset + 0.333*sqrt(3)*offset }; //由A3推导出
 //
-//				point B = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) ,       m*y - 0.5*width * (i - 1) };
+//				point A5 = { m*0.5*x + n * x + 0.5*a - offset,              m*y - 0.5*sqrt(3)*a + width * (i - 1) - 2 * offset + 0.333*sqrt(3)*offset }; //由A3推导出
 //
-//				point B1 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - 0.33*sqrt(3)*offset ,       m*y - 0.5*width * (i - 1) };
 //
-//				point B2 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - 0.167*sqrt(3)*offset ,       m*y - 0.5*width * (i - 1) + 0.5*offset };
+//				point B = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) ,     m*y - 0.5*width * (i - 1) };
 //
-//				point C = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) ,   m*y - 0.5*width * (i - 1) };
+//				point E3 = { m*0.5*x + n * x + 0 - sqrt(3)*offset,            m*y - 0 + offset };
 //
-//				point C1 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + 0.167*sqrt(3)*offset ,   m*y - 0.5*width * (i - 1) + 0.5*offset };
+//				point E1 = { m*0.5*x + n * x + 0 - sqrt(3)*offset,            m*y - 0 + offset - 0.333 * 2 * sqrt(3)*offset };//e3
 //
-//				point C2 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + 0.33*sqrt(3)*offset ,   m*y - 0.5*width * (i - 1) };
+//				point E2 = { m*0.5*x + n * x + 0 - sqrt(3)*offset + offset,   m*y - 0 + offset + 0.333*sqrt(3)*offset };//e3
 //
-//				point D1 = { m*0.5*x + n * x + 0.5*a - 0.167*sqrt(3)*offset,                         m*y - 0.5*sqrt(3)*a - 0.5*offset };
+//				point B3 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - sqrt(3)*offset ,              m*y - 0.5*width * (i - 1) + offset };
 //
-//				point D2 = { m*0.5*x + n * x + 0.5*a + 0.167*sqrt(3)*offset,                         m*y - 0.5*sqrt(3)*a - 0.5*offset };
+//				point B1 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - sqrt(3)*offset ,              m*y - 0.5*width * (i - 1) + offset - 2 * offset };//由B3
 //
-//				point E1 = { m * 0.5 * x + n * x + 0 - 0.33*sqrt(3)*offset ,                         m*y + 0 };
+//				point B2 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) ,                               m*y - 0.5*width * (i - 1) + 2 * offset }; //由B
 //
-//				point E2 = { m * 0.5 * x + n * x + 0 - 0.167*sqrt(3)*offset ,                         m*y + 0 + 0.5*offset };
+//				point B4 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - sqrt(3)*offset + offset ,     m*y - 0.5*width * (i - 1) + offset + 0.333*sqrt(3)*offset };//由B3
 //
-//				point F1 = { m*0.5*x + n * x + a + 0.33*sqrt(3)*offset,                             m*y + 0 };
+//				point B5 = { m*0.5*x + n * x + 0.5*sqrt(3)*width*(i - 1) - sqrt(3)*offset ,              m*y - 0.5*width * (i - 1) + offset - 0.333 * 2 * sqrt(3)*offset }; //由B3
 //
-//				point F2 = { m*0.5*x + n * x + a + 0.167*sqrt(3)*offset,                             m*y + 0 + 0.5*offset };
 //
-//				tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(E1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(B1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(D1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(D2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(F1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(F2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(B2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(E2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point C = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) ,    m*y - 0.5*width * (i - 1) };
 //
-//				tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point F3 = { m*0.5*x + n * x + a + sqrt(3)*offset ,              m*y - 0 + offset };
 //
-//				tripoint.push_back(trans(B, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point F1 = { m*0.5*x + n * x + a + sqrt(3)*offset ,              m*y - 0 + offset - 0.333 * 2 * sqrt(3)*offset }; //由f3
 //
-//				//tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(E1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(B1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(A1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(D1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(D2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(A2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(C2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(F1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(F2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(C1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(B2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(E2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point F2 = { m*0.5*x + n * x + a + sqrt(3)*offset - offset,      m*y - 0 + offset + 0.333*sqrt(3)*offset };//由f3
 //
-//				//tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point C3 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + sqrt(3)*offset,             m*y - 0.5*width * (i - 1) + offset };
 //
-//				//tripoint.push_back(trans(B, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(A, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				//tripoint.push_back(trans(C, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point C1 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) ,                             m*y - 0.5*width * (i - 1) + offset + offset }; //由c
+//
+//				point C2 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + sqrt(3)*offset ,            m*y - 0.5*width * (i - 1) + offset - 2 * offset };//由c3
+//
+//				point C4 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + sqrt(3)*offset  ,           m*y - 0.5*width * (i - 1) + offset - 0.333 * 2 * sqrt(3)*offset }; //由c3
+//
+//				point C5 = { m*0.5*x + n * x + a - 0.5*sqrt(3)*width*(i - 1) + sqrt(3)*offset - offset,    m*y - 0.5*width * (i - 1) + offset + 0.333*sqrt(3)*offset };//由c3
+//
+//
+//
+//
+//				tripoint.push_back(trans(E3, x0, y0)); tripoint.push_back(trans(E1, x0, y0));
+//				tripoint.push_back(trans(E1, x0, y0)); tripoint.push_back(trans(B5, x0, y0));
+//				tripoint.push_back(trans(B5, x0, y0)); tripoint.push_back(trans(B1, x0, y0));
+//				tripoint.push_back(trans(B1, x0, y0)); tripoint.push_back(trans(A1, x0, y0));
+//				tripoint.push_back(trans(A1, x0, y0)); tripoint.push_back(trans(A5, x0, y0));
+//				tripoint.push_back(trans(A5, x0, y0)); tripoint.push_back(trans(D1, x0, y0));
+//				tripoint.push_back(trans(D1, x0, y0)); tripoint.push_back(trans(D3, x0, y0));
+//				tripoint.push_back(trans(D3, x0, y0)); tripoint.push_back(trans(D2, x0, y0));
+//				tripoint.push_back(trans(D2, x0, y0)); tripoint.push_back(trans(A4, x0, y0));
+//				tripoint.push_back(trans(A4, x0, y0)); tripoint.push_back(trans(A2, x0, y0));
+//				tripoint.push_back(trans(A2, x0, y0)); tripoint.push_back(trans(C2, x0, y0));
+//				tripoint.push_back(trans(C2, x0, y0)); tripoint.push_back(trans(C4, x0, y0));
+//				tripoint.push_back(trans(C4, x0, y0)); tripoint.push_back(trans(F1, x0, y0));
+//				tripoint.push_back(trans(F1, x0, y0)); tripoint.push_back(trans(F3, x0, y0));
+//				tripoint.push_back(trans(F3, x0, y0)); tripoint.push_back(trans(F2, x0, y0));
+//				tripoint.push_back(trans(F2, x0, y0)); tripoint.push_back(trans(C5, x0, y0));
+//				tripoint.push_back(trans(C5, x0, y0)); tripoint.push_back(trans(C1, x0, y0));
+//				tripoint.push_back(trans(C1, x0, y0)); tripoint.push_back(trans(B2, x0, y0));
+//				tripoint.push_back(trans(B2, x0, y0)); tripoint.push_back(trans(B4, x0, y0));
+//				tripoint.push_back(trans(B4, x0, y0)); tripoint.push_back(trans(E2, x0, y0));
+//				tripoint.push_back(trans(E2, x0, y0)); tripoint.push_back(trans(E3, x0, y0));
+//
+//				tripoint.push_back(trans(E3, x0, y0)); tripoint.push_back(trans(B3, x0, y0));
+//				tripoint.push_back(trans(B3, x0, y0)); tripoint.push_back(trans(A3, x0, y0));
+//				tripoint.push_back(trans(A3, x0, y0)); tripoint.push_back(trans(D3, x0, y0));
+//				tripoint.push_back(trans(A3, x0, y0)); tripoint.push_back(trans(C3, x0, y0));
+//				tripoint.push_back(trans(C3, x0, y0)); tripoint.push_back(trans(F3, x0, y0));
+//				tripoint.push_back(trans(C3, x0, y0)); tripoint.push_back(trans(B3, x0, y0));
+//
+//				tripoint.push_back(trans(B, x0, y0)); tripoint.push_back(trans(A, x0, y0));
+//				tripoint.push_back(trans(A, x0, y0)); tripoint.push_back(trans(C, x0, y0));
+//				tripoint.push_back(trans(C, x0, y0)); tripoint.push_back(trans(B, x0, y0));
+//
+//
 //
 //			}
 //			n = 0;
@@ -1353,81 +1413,103 @@ void triangle(int i)  //第i层，从1开始，由i和w一起决定点A、B、C的位置  1层
 //	case 4:
 //	{
 //		i = i - 2 * sqrt(3)*0.333*a / width;
-//		a = a + 0.33*sqrt(3)*offset;
-//		x = a + 2 * sqrt(3)*0.33*offset + 0.25*offset;  //x坐标右移单位 这里是外三角形边长
-//		y = 0.5*sqrt(3)*a + offset + 0.25*offset;  //y坐标上移单位
-//
+//		x0 = -50 - 0.5*x;
+//		y0 = -2 * offset + y;
 //		for (m; m < (120 * 2) / (sqrt(3)*a); m++)  //阶段四：和阶段二一样
 //		{
 //			for (n; n < 170 / a; n++)
 //			{
 //
-//				point A3 = { m*0.5*x + n * x + 0.5*a ,                           m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a - 0.5*offset };
+//				point A = { m*0.5*x + n * x + 0.5*a ,               m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a };
 //
-//				point B3 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - 0.25*sqrt(3)*offset ,     m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + 0.25*offset };
+//				point D3 = { m*0.5*x + n * x + 0.5*a ,              m*y - 0.5*sqrt(3)*a - 2 * offset };//A
 //
-//				point C3 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + 0.25*sqrt(3)*offset ,       m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + 0.25*offset };
+//				point D1 = { m*0.5*x + n * x + 0.5*a - offset,      m*y - 0.5*sqrt(3)*a - 2 * offset + 0.333*sqrt(3)*offset };//D3
 //
-//				point D3 = { m*0.5*x + n * x + 0.5*a ,                           m*y - 0.5*sqrt(3)*a - 0.5*offset };
+//				point D2 = { m*0.5*x + n * x + 0.5*a + offset,      m*y - 0.5*sqrt(3)*a - 2 * offset + 0.333*sqrt(3)*offset };//D3
 //
-//				point E3 = { m * 0.5 * x + n * x + 0 - 0.25*sqrt(3)*offset,                           m*y + 0 + 0.25*offset };
+//				point A3 = { m*0.5*x + n * x + 0.5*a ,              m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a - 2 * offset }; //A
 //
-//				point F3 = { m*0.5*x + n * x + a + 0.25*sqrt(3)*offset,                               m*y + 0 + 0.25*offset };
+//				point A1 = { m*0.5*x + n * x + 0.5*a - sqrt(3)*offset ,     m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a - 2 * offset + offset }; //由A3推导出
 //
-//				point A = { m*0.5*x + n * x + 0.5*a ,                           m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a };
+//				point A2 = { m*0.5*x + n * x + 0.5*a + sqrt(3)*offset,      m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a - 2 * offset + offset }; //由A3推导出
 //
-//				point A1 = { m*0.5*x + n * x + 0.5*a - 0.167*sqrt(3)*offset,     m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a - 0.5*offset };
+//				point A4 = { m*0.5*x + n * x + 0.5*a + offset ,             m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a - 2 * offset + 0.333*sqrt(3)*offset }; //由A3推导出
 //
-//				point A2 = { m*0.5*x + n * x + 0.5*a + 0.167*sqrt(3)*offset,     m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a - 0.5*offset };
+//				point A5 = { m*0.5*x + n * x + 0.5*a - offset,              m*y - width * (i - 1) + sqrt(3)*0.333*a - sqrt(3)*0.167*a - 2 * offset + 0.333*sqrt(3)*offset }; //由A3推导出
 //
-//				point B = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) ,     m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) };
 //
-//				point B1 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - 0.33*sqrt(3)*offset ,     m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) };
+//				point B = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) , m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) };
 //
-//				point B2 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - 0.167*sqrt(3)*offset ,     m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + 0.5*offset };
+//				point E3 = { m*0.5*x + n * x + 0 - sqrt(3)*offset,            m*y - 0 + offset };
 //
-//				point C = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) ,       m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) };
+//				point E1 = { m*0.5*x + n * x + 0 - sqrt(3)*offset,            m*y - 0 + offset - 0.333 * 2 * sqrt(3)*offset };//e3
 //
-//				point C1 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + 0.167*sqrt(3)*offset ,       m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + 0.5*offset };
+//				point E2 = { m*0.5*x + n * x + 0 - sqrt(3)*offset + offset,   m*y - 0 + offset + 0.333*sqrt(3)*offset };//e3
 //
-//				point C2 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + 0.33*sqrt(3)*offset,       m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) };
+//				point B3 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - sqrt(3)*offset ,              m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset };
 //
-//				point D1 = { m*0.5*x + n * x + 0.5*a - 0.167*sqrt(3)*offset,                         m*y - 0.5*sqrt(3)*a - 0.5*offset };
+//				point B1 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - sqrt(3)*offset ,              m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset - 2 * offset };//由B3
 //
-//				point D2 = { m*0.5*x + n * x + 0.5*a + 0.167*sqrt(3)*offset,                         m*y - 0.5*sqrt(3)*a - 0.5*offset };
+//				point B2 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) ,                               m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + 2 * offset }; //由B
 //
-//				point E1 = { m * 0.5 * x + n * x + 0 - 0.33*sqrt(3)*offset ,                         m*y + 0 };
+//				point B4 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - sqrt(3)*offset + offset ,     m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset + 0.333*sqrt(3)*offset };//由B3
 //
-//				point E2 = { m * 0.5 * x + n * x + 0 - 0.167*sqrt(3)*offset ,                         m*y + 0 + 0.5*offset };
+//				point B5 = { m*0.5*x + n * x + a - sqrt(3)*0.5*width*(i - 1) - sqrt(3)*offset ,              m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset - 0.333 * 2 * sqrt(3)*offset }; //由B3
 //
-//				point F1 = { m*0.5*x + n * x + a + 0.33*sqrt(3)*offset,                             m*y + 0 };
 //
-//				point F2 = { m*0.5*x + n * x + a + 0.167*sqrt(3)*offset,                             m*y + 0 + 0.5*offset };
 //
-//				tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(E1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(B1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(D1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(D2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(F1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(F2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C1, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C1, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(B2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E2, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(E2, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point C = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) ,        m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) };
 //
-//				tripoint.push_back(trans(E3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(D3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(F3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C3, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B3, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point F3 = { m*0.5*x + n * x + a + sqrt(3)*offset ,              m*y - 0 + offset };
 //
-//				tripoint.push_back(trans(B, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(A, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(A, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(C, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
-//				tripoint.push_back(trans(C, -50 - 0.167*sqrt(3)*offset, -0.5*offset)); tripoint.push_back(trans(B, -50 - 0.167*sqrt(3)*offset, -0.5*offset));
+//				point F1 = { m*0.5*x + n * x + a + sqrt(3)*offset ,              m*y - 0 + offset - 0.333 * 2 * sqrt(3)*offset }; //由f3
+//
+//				point F2 = { m*0.5*x + n * x + a + sqrt(3)*offset - offset,      m*y - 0 + offset + 0.333*sqrt(3)*offset };//由f3
+//
+//				point C3 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + sqrt(3)*offset,             m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset };
+//
+//				point C1 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) ,                             m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset + offset }; //由c
+//
+//				point C2 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + sqrt(3)*offset ,            m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset - 2 * offset };//由c3
+//
+//				point C4 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + sqrt(3)*offset  ,           m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset - 0.333 * 2 * sqrt(3)*offset }; //由c3
+//
+//				point C5 = { m*0.5*x + n * x + sqrt(3)*0.5*width*(i - 1) + sqrt(3)*offset - offset,    m*y - sqrt(3) * 0.333 * a + 0.5*width * (i - 1) + offset + 0.333*sqrt(3)*offset };//由c3
+//
+//
+//				tripoint.push_back(trans(E3, x0, y0)); tripoint.push_back(trans(E1, x0, y0));
+//				tripoint.push_back(trans(E1, x0, y0)); tripoint.push_back(trans(B5, x0, y0));
+//				tripoint.push_back(trans(B5, x0, y0)); tripoint.push_back(trans(B1, x0, y0));
+//				tripoint.push_back(trans(B1, x0, y0)); tripoint.push_back(trans(A1, x0, y0));
+//				tripoint.push_back(trans(A1, x0, y0)); tripoint.push_back(trans(A5, x0, y0));
+//				tripoint.push_back(trans(A5, x0, y0)); tripoint.push_back(trans(D1, x0, y0));
+//				tripoint.push_back(trans(D1, x0, y0)); tripoint.push_back(trans(D3, x0, y0));
+//				tripoint.push_back(trans(D3, x0, y0)); tripoint.push_back(trans(D2, x0, y0));
+//				tripoint.push_back(trans(D2, x0, y0)); tripoint.push_back(trans(A4, x0, y0));
+//				tripoint.push_back(trans(A4, x0, y0)); tripoint.push_back(trans(A2, x0, y0));
+//				tripoint.push_back(trans(A2, x0, y0)); tripoint.push_back(trans(C2, x0, y0));
+//				tripoint.push_back(trans(C2, x0, y0)); tripoint.push_back(trans(C4, x0, y0));
+//				tripoint.push_back(trans(C4, x0, y0)); tripoint.push_back(trans(F1, x0, y0));
+//				tripoint.push_back(trans(F1, x0, y0)); tripoint.push_back(trans(F3, x0, y0));
+//				tripoint.push_back(trans(F3, x0, y0)); tripoint.push_back(trans(F2, x0, y0));
+//				tripoint.push_back(trans(F2, x0, y0)); tripoint.push_back(trans(C5, x0, y0));
+//				tripoint.push_back(trans(C5, x0, y0)); tripoint.push_back(trans(C1, x0, y0));
+//				tripoint.push_back(trans(C1, x0, y0)); tripoint.push_back(trans(B2, x0, y0));
+//				tripoint.push_back(trans(B2, x0, y0)); tripoint.push_back(trans(B4, x0, y0));
+//				tripoint.push_back(trans(B4, x0, y0)); tripoint.push_back(trans(E2, x0, y0));
+//				tripoint.push_back(trans(E2, x0, y0)); tripoint.push_back(trans(E3, x0, y0));
+//
+//				tripoint.push_back(trans(E3, x0, y0)); tripoint.push_back(trans(B3, x0, y0));
+//				tripoint.push_back(trans(B3, x0, y0)); tripoint.push_back(trans(A3, x0, y0));
+//				tripoint.push_back(trans(A3, x0, y0)); tripoint.push_back(trans(D3, x0, y0));
+//				tripoint.push_back(trans(A3, x0, y0)); tripoint.push_back(trans(C3, x0, y0));
+//				tripoint.push_back(trans(C3, x0, y0)); tripoint.push_back(trans(F3, x0, y0));
+//				tripoint.push_back(trans(C3, x0, y0)); tripoint.push_back(trans(B3, x0, y0));
+//
+//				tripoint.push_back(trans(B, x0, y0)); tripoint.push_back(trans(A, x0, y0));
+//				tripoint.push_back(trans(A, x0, y0)); tripoint.push_back(trans(C, x0, y0));
+//				tripoint.push_back(trans(C, x0, y0)); tripoint.push_back(trans(B, x0, y0));
 //
 //			}
 //			n = 0;
@@ -1552,7 +1634,7 @@ void writegcode()
 
 	err = fopen_s(&fp, "test gcode.txt", "a"); //若return 1 , 则将指向这个文件的文件流给fp1
 
-	fprintf(fp, "M104 S200\n");
+	fprintf(fp, "M104 S190\n");
 	fprintf(fp, "M105\n");
 	fprintf(fp, "M109 S200\n");
 	fprintf(fp, "M82;set extruder to absolute mode\n");
@@ -1816,7 +1898,7 @@ void main(int argc, char** argv)
 {
 	//************************************************************************切片
 	printf("slicing...\n");
-	readfile(file_2);
+	readfile(file_10);
 	BoundingBox();
 	findIntersect();  //前三个函数切片，产生model
 	printf("slice complete,layer count: %d\n", model.size());
@@ -1828,8 +1910,8 @@ void main(int argc, char** argv)
 
 	//************************************************************************编写Gcode
 	printf("Gcode writing...\n");
-	//writegcode();
-	writpointcloud();
+	writegcode();
+	//writpointcloud();
 	printf("Gcode writing complete,file save as \"test gcode.txt\"\n");
 
 	//************************************************************************预览
