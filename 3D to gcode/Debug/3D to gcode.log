@@ -1,34 +1,45 @@
 ﻿  new main.cpp
-f:\repos\3d to gcode\3d to gcode\new main.cpp(48): warning C4305: “初始化”: 从“double”到“float”截断
-f:\repos\3d to gcode\3d to gcode\new main.cpp(49): warning C4305: “初始化”: 从“double”到“float”截断
-f:\repos\3d to gcode\3d to gcode\new main.cpp(83): warning C4305: “初始化”: 从“double”到“float”截断
-f:\repos\3d to gcode\3d to gcode\new main.cpp(165): warning C4101: “ne1”: 未引用的局部变量
-f:\repos\3d to gcode\3d to gcode\new main.cpp(165): warning C4101: “nf”: 未引用的局部变量
-f:\repos\3d to gcode\3d to gcode\new main.cpp(363): warning C4244: “=”: 从“double”转换到“Scalar”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(50): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(51): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(85): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(167): warning C4101: “ne1”: 未引用的局部变量
+f:\repos\3d to gcode\3d to gcode\new main.cpp(167): warning C4101: “nf”: 未引用的局部变量
+f:\repos\3d to gcode\3d to gcode\new main.cpp(365): warning C4244: “=”: 从“double”转换到“Scalar”，可能丢失数据
           with
           [
               Scalar=float
           ]
-f:\repos\3d to gcode\3d to gcode\new main.cpp(369): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\new main.cpp(372): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\new main.cpp(376): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\new main.cpp(561): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\new main.cpp(562): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\new main.cpp(576): warning C4305: “初始化”: 从“double”到“float”截断
-f:\repos\3d to gcode\3d to gcode\new main.cpp(673): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\new main.cpp(707): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1528): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1537): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1540): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1671): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1680): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1688): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1718): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1727): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(371): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(374): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(378): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(556): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(557): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(558): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(559): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(605): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(606): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(794): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(796): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(798): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(799): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(928): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1043): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1059): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1154): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1171): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1266): warning C4018: “<”: 有符号/无符号不匹配
 f:\repos\3d to gcode\3d to gcode\new main.cpp(1769): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1771): warning C4018: “<”: 有符号/无符号不匹配
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1773): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\new main.cpp(1898): warning C4326: “main”的返回类型应为“int”而非“void”
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1778): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1781): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1912): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1921): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1929): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1959): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1967): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2009): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2011): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2013): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2138): warning C4326: “main”的返回类型应为“int”而非“void”
 f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\geometry\vector11t.hh(738): warning C4244: “参数”: 从“const OtherScalar”转换到“const Scalar”，可能丢失数据
           with
           [
@@ -83,5 +94,5 @@ f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\
           [
               Traits=MyTraits
           ]
-  f:\repos\3d to gcode\3d to gcode\new main.cpp(86): note: 参见对正在编译的 类 模板 实例化 "OpenMesh::TriMesh_ArrayKernelT<MyTraits>" 的引用
+  f:\repos\3d to gcode\3d to gcode\new main.cpp(88): note: 参见对正在编译的 类 模板 实例化 "OpenMesh::TriMesh_ArrayKernelT<MyTraits>" 的引用
   3D to gcode.vcxproj -> F:\repos\3D to gcode\Debug\3D to gcode.exe
