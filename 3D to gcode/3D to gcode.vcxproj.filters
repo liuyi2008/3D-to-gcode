@@ -15,16 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="new main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test gcode.txt">
+    <ClCompile Include="writeobj2.0.cpp">
       <Filter>源文件</Filter>
-    </Text>
+    </ClCompile>
   </ItemGroup>
 </Project>

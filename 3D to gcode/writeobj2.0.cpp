@@ -12,30 +12,34 @@ void main()
 
 	errno_t err;     //判断此文件流是否存在 存在返回1
 
-	err = fopen_s(&fp, "test obj.txt", "a"); //若return 1 , 则将指向这个文件的文件流给fp1
+	err = fopen_s(&fp, "test obj.obj", "a"); //若return 1 , 则将指向这个文件的文件流给fp1
 
 
-	float a = 5.0;             //三角形边长
-	float thickness = 0.8;      //壳厚
+	float a = 22.0;             //三角形边长
+	float thickness = 3.0;      //壳厚
 	float h = 0.5*a*0.333*sqrt(3) * 4; //45°
 	//float h = 2*0.333*a;  //30°
 	//float h = 2 * a;  //60°
 	                                //cell高 即调整角度
 								   //a、h、角度,知二得三
-	int m0 = 30, n0 = 30, l0 = 20;//m列数（一行几个），n行数（有几行），l有几层
+	int m0 = 5, n0 = 5, l0 = 5;//m列数（一行几个），n行数（有几行），l有几层
 
 	int m = 0, n = 0, l = 0; //计数器
+	float length = 200;
+	float width = 150;
+	float high = 100;
+	//外包盒的长宽高
+
     float x = a + thickness, y = 0.5*sqrt(3)*(a + thickness), z = h + thickness;//偏移值 
 
 	int r = 0;//点数计数器
 
-	for (l = 0; l < l0; l++)
+	for (l = 0; h + l * z < high; l++)
 	{
-		for (n = 0; n < n0; n++)
+		for (n = 0; 0.5*sqrt(3)*a + n * y < width; n++)
 		{
-			for (m = 0; m < m0; m++)
+			for (m = 0; a + m * x + n * 0.5*x < length; m++)
 			{
-
 				point O1 = { 0.5*a + m * x + n * 0.5*x,   0.5*0.333*sqrt(3)*a + n * y,   0.00 + l * z };
 
 				point D2 = { 0.5*a + m * x + n * 0.5*x,   0.5*sqrt(3)*a + n * y,         0.25*h + l * z };
@@ -82,28 +86,28 @@ void main()
 		}
 	}
 
-	for (l = 0; l < l0 - 1; l++) //cell2，转了60°，x坐标+0.5*x,y坐标+0.5*0.333*sqrt(3)*a,z坐标+0.5*z
+	for (l = 0; h + l * z < high - h; l++) //cell2，转了60°，x坐标+0.5*x,y坐标+0.333*y,z坐标+0.5*z
 	{
-		for (n = 0; n < n0 - 1; n++)
+		for (n = 0; 0.5*sqrt(3)*a + n * y < width - 0.5*sqrt(3)*a; n++)
 		{
-			for (m = 0; m < m0 - 1; m++)
+			for (m = 0;  a + m * x + n * 0.5*x < length - a; m++)
 			{
 
-				point O1 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,   0.5*0.333*sqrt(3)*a + n * y + 0.5*0.333*sqrt(3)*a,   0.00 + l * z + 0.5*z };
+				point O1 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,   0.5*0.333*sqrt(3)*a + n * y + 0.333*y,   0.00 + l * z + 0.5*z };
 
-				point D2 = { 0.00 + m * x + n * 0.5*x + 0.5*x,    a*0.33*sqrt(3) + n * y + 0.5*0.333*sqrt(3)*a,        0.25*h + l * z + 0.5*z };
-				point E3 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,   -0.5*0.333*sqrt(3)*a + n * y + 0.5*0.333*sqrt(3)*a,  0.25*h + l * z + 0.5*z };
-				point F4 = { a + m * x + n * 0.5*x + 0.5*x,       a*0.33*sqrt(3) + n * y + 0.5*0.333*sqrt(3)*a,        0.25*h + l * z + 0.5*z };
+				point D2 = { 0.00 + m * x + n * 0.5*x + 0.5*x,    a*0.33*sqrt(3) + n * y + 0.333*y,        0.25*h + l * z + 0.5*z };
+				point E3 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,   -0.5*0.333*sqrt(3)*a + n * y + 0.333*y,  0.25*h + l * z + 0.5*z };
+				point F4 = { a + m * x + n * 0.5*x + 0.5*x,       a*0.33*sqrt(3) + n * y + 0.333*y,        0.25*h + l * z + 0.5*z };
 
-				point G5 = { 0.00 + m * x + n * 0.5*x + 0.5*x,    0.00 + n * y + 0.5*0.333*sqrt(3)*a,                  0.5*h + l * z + 0.5*z };
-				point H6 = { a + m * x + n * 0.5*x + 0.5*x,       0.00 + n * y + 0.5*0.333*sqrt(3)*a,                  0.5*h + l * z + 0.5*z };
-				point I7 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,   0.5*sqrt(3)*a + n * y + 0.5*0.333*sqrt(3)*a,         0.5*h + l * z + 0.5*z };
+				point G5 = { 0.00 + m * x + n * 0.5*x + 0.5*x,    0.00 + n * y + 0.333*y,                  0.5*h + l * z + 0.5*z };
+				point H6 = { a + m * x + n * 0.5*x + 0.5*x,       0.00 + n * y + 0.333*y,                  0.5*h + l * z + 0.5*z };
+				point I7 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,   0.5*sqrt(3)*a + n * y + 0.333*y,         0.5*h + l * z + 0.5*z };
 
-				point D8 = { 0.00 + m * x + n * 0.5*x + 0.5*x,    a*0.33*sqrt(3) + n * y + 0.5*0.333*sqrt(3)*a,        0.75*h + l * z + 0.5*z };
-				point E9 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,   -0.5*0.333*sqrt(3)*a + n * y + 0.5*0.333*sqrt(3)*a,  0.75*h + l * z + 0.5*z };
-				point F10 = { a + m * x + n * 0.5*x + 0.5*x,       a*0.33*sqrt(3) + n * y + 0.5*0.333*sqrt(3)*a,       0.75*h + l * z + 0.5*z };
+				point D8 = { 0.00 + m * x + n * 0.5*x + 0.5*x,    a*0.33*sqrt(3) + n * y + 0.333*y,        0.75*h + l * z + 0.5*z };
+				point E9 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,   -0.5*0.333*sqrt(3)*a + n * y + 0.333*y,  0.75*h + l * z + 0.5*z };
+				point F10 = { a + m * x + n * 0.5*x + 0.5*x,       a*0.33*sqrt(3) + n * y + 0.333*y,       0.75*h + l * z + 0.5*z };
 
-				point O11 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,  0.5*0.333*sqrt(3)*a + n * y + 0.5*0.333*sqrt(3)*a,   h + l * z + 0.5*z };
+				point O11 = { 0.5*a + m * x + n * 0.5*x + 0.5*x,  0.5*0.333*sqrt(3)*a + n * y + 0.333*y,   h + l * z + 0.5*z };
 
 				fprintf(fp, "v %f %f %f\n", O1.x, O1.y, O1.z);
 				fprintf(fp, "v %f %f %f\n", D2.x, D2.y, D2.z);
@@ -134,17 +138,17 @@ void main()
 			}
 		}
 	}
+	
 
+	fprintf(fp, "v %f %f %f\n", -thickness,         -thickness - 0.5*a*0.33*sqrt(3), high + thickness);
+	fprintf(fp, "v %f %f %f\n", length + thickness, -thickness - 0.5*a*0.33*sqrt(3), high + thickness);
+	fprintf(fp, "v %f %f %f\n", -thickness,         width + thickness,               high + thickness);
+	fprintf(fp, "v %f %f %f\n", length + thickness, width + thickness,               high + thickness);
 
-	fprintf(fp, "v %f %f %f\n", -thickness,              -thickness - 0.5*a*0.33*sqrt(3), l0*z + thickness);
-	fprintf(fp, "v %f %f %f\n", (n0 - 1)*0.5*x + m0 * x, -thickness - 0.5*a*0.33*sqrt(3), l0*z + thickness);
-	fprintf(fp, "v %f %f %f\n", -thickness,              y*n0 + thickness,                l0*z + thickness);
-	fprintf(fp, "v %f %f %f\n", (n0 - 1)*0.5*x + m0 * x, y*n0 + thickness,                l0*z + thickness);
-
-	fprintf(fp, "v %f %f %f\n", -thickness, y*n0 + thickness, -thickness);
-	fprintf(fp, "v %f %f %f\n", (n0 - 1)*0.5*x + m0 * x, y*n0 + thickness, -thickness);
-	fprintf(fp, "v %f %f %f\n", -thickness, -thickness - 0.5*a*0.33*sqrt(3), -thickness);
-	fprintf(fp, "v %f %f %f\n", (n0 - 1)*0.5*x + m0 * x, -thickness - 0.5*a*0.33*sqrt(3), -thickness);
+	fprintf(fp, "v %f %f %f\n", -thickness,         width + thickness,               -thickness);
+	fprintf(fp, "v %f %f %f\n", length + thickness, width + thickness,               -thickness);
+	fprintf(fp, "v %f %f %f\n", -thickness,         -thickness - 0.5*a*0.33*sqrt(3), -thickness);
+	fprintf(fp, "v %f %f %f\n", length + thickness, -thickness - 0.5*a*0.33*sqrt(3), -thickness);
 
 	fprintf(fp, "f %d %d %d %d\n", 1 + r, 2 + r, 4 + r, 3 + r);
 	fprintf(fp, "f %d %d %d %d\n", 7 + r, 5 + r, 6 + r, 8 + r);
