@@ -1,49 +1,97 @@
-﻿  writeobj2.0.cpp
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(10): warning C4326: “main”的返回类型应为“int”而非“void”
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(20): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(43): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(43): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(45): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(45): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(46): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(46): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(47): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(47): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(49): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(49): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(50): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(50): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(51): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(51): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(53): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(53): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(54): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(54): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(55): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(55): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(57): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(57): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(96): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(96): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(98): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(98): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(99): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(99): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(100): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(100): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(102): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(102): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(103): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(103): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(104): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(104): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(106): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(106): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(107): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(107): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(108): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(108): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(110): warning C4838: 从“double”转换到“GLfloat”需要收缩转换
-f:\repos\3d to gcode\3d to gcode\writeobj2.0.cpp(110): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+﻿  new main.cpp
+f:\repos\3d to gcode\3d to gcode\new main.cpp(51): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(52): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(88): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(171): warning C4101: “ne1”: 未引用的局部变量
+f:\repos\3d to gcode\3d to gcode\new main.cpp(171): warning C4101: “nf”: 未引用的局部变量
+f:\repos\3d to gcode\3d to gcode\new main.cpp(374): warning C4244: “=”: 从“double”转换到“Scalar”，可能丢失数据
+          with
+          [
+              Scalar=float
+          ]
+f:\repos\3d to gcode\3d to gcode\new main.cpp(382): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(386): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(391): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(573): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(574): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(575): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(576): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(622): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(623): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(639): warning C4305: “初始化”: 从“double”到“float”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(736): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(770): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1788): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1797): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1800): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1931): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1940): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1948): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1976): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(1978): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2023): warning C4305: “参数”: 从“double”到“GLfloat”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2025): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2027): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2029): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2031): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2035): warning C4305: “参数”: 从“double”到“GLfloat”截断
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2037): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2039): warning C4018: “<”: 有符号/无符号不匹配
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2041): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+f:\repos\3d to gcode\3d to gcode\new main.cpp(2174): warning C4326: “main”的返回类型应为“int”而非“void”
+f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\geometry\vector11t.hh(738): warning C4244: “参数”: 从“const OtherScalar”转换到“const Scalar”，可能丢失数据
+          with
+          [
+              OtherScalar=double
+          ]
+          and
+          [
+              Scalar=float
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(394): note: 参见对正在编译的函数 模板 实例化“OpenMesh::VectorT<float,3> &OpenMesh::vectorize<float,3,double>(OpenMesh::VectorT<float,3> &,const OtherScalar &)”的引用
+          with
+          [
+              OtherScalar=double
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(393): note: 编译 类 模板 成员函数 "void OpenMesh::PolyMeshT<Kernel>::calc_vertex_normal_fast(OpenMesh::VertexHandle,OpenMesh::VectorT<float,3> &) const" 时
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(381): note: 参见对正在编译的函数 模板 实例化“void OpenMesh::PolyMeshT<Kernel>::calc_vertex_normal_fast(OpenMesh::VertexHandle,OpenMesh::VectorT<float,3> &) const”的引用
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(379): note: 编译 类 模板 成员函数 "OpenMesh::VectorT<float,3> OpenMesh::PolyMeshT<Kernel>::calc_vertex_normal(OpenMesh::VertexHandle) const" 时
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(458): note: 参见对正在编译的函数 模板 实例化“OpenMesh::VectorT<float,3> OpenMesh::PolyMeshT<Kernel>::calc_vertex_normal(OpenMesh::VertexHandle) const”的引用
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(265): note: 编译 类 模板 成员函数 "void OpenMesh::PolyMeshT<Kernel>::update_face_normals(void)" 时
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\polymesht.cc(250): note: 参见对正在编译的函数 模板 实例化“void OpenMesh::PolyMeshT<Kernel>::update_face_normals(void)”的引用
+          with
+          [
+              Kernel=OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<MyTraits,true>,OpenMesh::TriConnectivity>
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\trimesht.cc(80): note: 编译 类 模板 成员函数 "OpenMesh::VectorT<float,3> OpenMesh::TriMeshT<OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<Traits,true>,OpenMesh::TriConnectivity>>::calc_face_normal(OpenMesh::FaceHandle) const" 时
+          with
+          [
+              Traits=MyTraits
+          ]
+  f:\repos\3d to gcode\packages\openmesh.7.1.1\build\native\include\openmesh\core\mesh\trimesh_arraykernelt.hh(101): note: 参见对正在编译的 类 模板 实例化 "OpenMesh::TriMeshT<OpenMesh::AttribKernelT<OpenMesh::FinalMeshItemsT<Traits,true>,OpenMesh::TriConnectivity>>" 的引用
+          with
+          [
+              Traits=MyTraits
+          ]
+  f:\repos\3d to gcode\3d to gcode\new main.cpp(91): note: 参见对正在编译的 类 模板 实例化 "OpenMesh::TriMesh_ArrayKernelT<MyTraits>" 的引用
   3D to gcode.vcxproj -> F:\repos\3D to gcode\Debug\3D to gcode.exe
